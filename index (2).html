@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>رياض للتجهيزات - معدات المطاعم</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red: #cc1f1f;
+      --red-dark: #a01515;
+      --red-light: #e63030;
+      --gray-bg: #f5f5f5;
+      --steel: #e8e8e8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: #fff;
+      color: #222;
+      overflow-x: hidden;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: #fff;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    nav.scrolled {
+      box-shadow: 0 4px 30px rgba(204,31,31,0.15);
+    }
+
+    .nav-top {
+      background: var(--red);
+      padding: 6px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: #fff;
+    }
+
+    .nav-top a { color: #fff; text-decoration: none; display: flex; align-items: center; gap: 6px; }
+
+    .nav-main {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 40px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 60px;
+      height: 60px;
+    }
+
+    .logo-text h1 {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--red);
+      line-height: 1.1;
+      font-family: 'Tajawal', sans-serif;
+    }
+
+    .logo-text span {
+      font-size: 11px;
+      color: #666;
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--red);
+      background: rgba(204,31,31,0.06);
+    }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 2px; left: 50%; right: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 2px;
+      background: var(--red);
+      border-radius: 2px;
+    }
+
+    .nav-cta {
+      background: var(--red);
+      color: #fff !important;
+      border-radius: 8px !important;
+      padding: 10px 22px !important;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--red-dark) !important; color: #fff !important; }
+
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+      padding: 8px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 25px;
+      height: 2px;
+      background: var(--red);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; right: -100%;
+      width: 75%;
+      max-width: 320px;
+      height: 100vh;
+      background: #fff;
+      z-index: 2000;
+      padding: 30px 24px;
+      box-shadow: -8px 0 40px rgba(0,0,0,0.15);
+      transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .mobile-menu.open { right: 0; }
+
+    .mobile-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 1999;
+    }
+    .mobile-overlay.open { display: block; }
+
+    .mobile-close {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: none;
+      border: 1px solid #ddd;
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 18px;
+      color: #666;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mobile-logo { margin-top: 20px; margin-bottom: 30px; }
+    .mobile-logo h2 { font-size: 20px; font-weight: 900; color: var(--red); }
+
+    .mobile-nav-links { list-style: none; }
+    .mobile-nav-links li { border-bottom: 1px solid #f0f0f0; }
+    .mobile-nav-links a {
+      display: block;
+      padding: 14px 8px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .mobile-nav-links a:hover { color: var(--red); }
+
+    /* ===== HERO ===== */
+    .hero {
+      margin-top: 110px;
+      min-height: 88vh;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d0a0a 40%, #8b1a1a 100%);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-bg-pattern {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 50%, rgba(204,31,31,0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(204,31,31,0.15) 0%, transparent 40%);
+    }
+
+    .hero-gear {
+      position: absolute;
+      opacity: 0.04;
+      font-size: 500px;
+      top: 50%;
+      right: -100px;
+      transform: translateY(-50%);
+      animation: spin-slow 30s linear infinite;
+      color: #fff;
+      user-select: none;
+    }
+
+    @keyframes spin-slow { from { transform: translateY(-50%) rotate(0deg); } to { transform: translateY(-50%) rotate(360deg); } }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .hero-text { color: #fff; }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-badge span { width: 8px; height: 8px; background: #4ade80; border-radius: 50%; animation: pulse-dot 2s infinite; }
+    @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    .hero-title {
+      font-size: clamp(32px, 4vw, 54px);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      font-family: 'Tajawal', sans-serif;
+    }
+
+    .hero-title .accent { color: var(--red-light); }
+
+    .hero-subtitle {
+      font-size: 16px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.8;
+      margin-bottom: 36px;
+      max-width: 480px;
+    }
+
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: var(--red);
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Cairo', sans-serif;
+    }
+    .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(204,31,31,0.4); }
+
+    .btn-outline {
+      background: transparent;
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      border: 2px solid rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: all 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Cairo', sans-serif;
+    }
+    .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+
+    .hero-stats {
+      display: flex;
+      gap: 30px;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .hero-stat { text-align: center; }
+    .hero-stat .num { font-size: 28px; font-weight: 900; color: var(--red-light); font-family: 'Tajawal', sans-serif; }
+    .hero-stat .lbl { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 2px; }
+
+    /* Hero image grid */
+    .hero-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 12px;
+      position: relative;
+    }
+
+    .hero-img-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+      transition: transform 0.3s;
+      aspect-ratio: 1;
+    }
+
+    .hero-img-card:hover { transform: scale(1.03); }
+    .hero-img-card:first-child { grid-column: span 2; aspect-ratio: 16/8; }
+
+    .hero-img-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.9);
+      transition: filter 0.3s;
+    }
+
+    .hero-img-card:hover img { filter: brightness(1); }
+
+    /* ===== SECTION COMMON ===== */
+    section { padding: 80px 40px; }
+
+    .section-header { text-align: center; margin-bottom: 52px; }
+    .section-label {
+      display: inline-block;
+      background: rgba(204,31,31,0.08);
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 50px;
+      margin-bottom: 14px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .section-title {
+      font-size: clamp(24px, 3vw, 38px);
+      font-weight: 900;
+      color: #1a1a1a;
+      font-family: 'Tajawal', sans-serif;
+      line-height: 1.3;
+    }
+    .section-title .red { color: var(--red); }
+    .section-desc {
+      font-size: 15px;
+      color: #666;
+      margin-top: 14px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.8;
+    }
+
+    /* ===== ABOUT BANNER ===== */
+    .about-banner {
+      background: var(--red);
+      padding: 60px 40px;
+    }
+
+    .about-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      color: #fff;
+    }
+
+    .about-inner h2 { font-size: 32px; font-weight: 900; font-family: 'Tajawal', sans-serif; margin-bottom: 16px; }
+    .about-inner p { font-size: 15px; line-height: 1.9; color: rgba(255,255,255,0.85); margin-bottom: 24px; }
+
+    .about-inner a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      color: var(--red);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 12px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .about-inner a:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+
+    .about-features { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .about-feat {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 12px;
+      padding: 20px;
+      backdrop-filter: blur(4px);
+    }
+
+    .about-feat .icon { font-size: 28px; margin-bottom: 10px; }
+    .about-feat h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    .about-feat p { font-size: 12px; color: rgba(255,255,255,0.75); line-height: 1.6; }
+
+    /* ===== PRODUCTS ===== */
+    .products-section { background: var(--gray-bg); }
+
+    .products-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .product-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+    }
+
+    .product-card:hover .product-overlay { opacity: 1; }
+
+    .product-img {
+      height: 220px;
+      background: var(--steel);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 20px;
+      transition: transform 0.4s;
+    }
+    .product-card:hover .product-img img { transform: scale(1.08); }
+
+    .product-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(204,31,31,0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .product-overlay a {
+      background: #fff;
+      color: var(--red);
+      font-weight: 700;
+      font-size: 13px;
+      padding: 10px 22px;
+      border-radius: 7px;
+      text-decoration: none;
+      transition: transform 0.2s;
+    }
+    .product-overlay a:hover { transform: scale(1.05); }
+
+    .product-info { padding: 20px; }
+    .product-info h3 { font-size: 15px; font-weight: 700; color: #222; margin-bottom: 6px; }
+    .product-info p { font-size: 12px; color: #888; line-height: 1.6; }
+
+    .product-tag {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--red);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 50px;
+    }
+
+    /* ===== STATS ===== */
+    .stats-section {
+      background: #fff;
+      padding: 70px 40px;
+    }
+
+    .stats-grid {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      /* grid-template-columns: repeat(3, 1fr); */
+      gap: 24px;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 36px 24px;
+      border-radius: 16px;
+      background: var(--gray-bg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--red);
+    }
+
+    .stat-num {
+      font-size: 48px;
+      font-weight: 900;
+      color: var(--red);
+      font-family: 'Tajawal', sans-serif;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label { font-size: 15px; color: #555; font-weight: 600; }
+
+    /* ===== WHY US ===== */
+    .why-section { background: var(--gray-bg); }
+
+    .why-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .why-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+      transition: all 0.3s;
+    }
+
+    .why-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
+
+    .why-icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(204,31,31,0.08);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 28px;
+      transition: background 0.3s;
+    }
+    .why-card:hover .why-icon { background: var(--red); }
+    .why-card:hover .why-icon svg { color: #fff; }
+
+    .why-card h3 { font-size: 17px; font-weight: 800; color: #1a1a1a; margin-bottom: 10px; }
+    .why-card p { font-size: 13px; color: #777; line-height: 1.7; }
+
+    /* ===== CTA SECTION ===== */
+    .cta-section {
+      background: linear-gradient(135deg, #1a1a1a 0%, #8b1a1a 100%);
+      padding: 80px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(204,31,31,0.25) 0%, transparent 60%);
+    }
+
+    .cta-content { position: relative; z-index: 1; }
+    .cta-content h2 { font-size: 36px; font-weight: 900; color: #fff; margin-bottom: 16px; font-family: 'Tajawal', sans-serif; }
+    .cta-content p { font-size: 16px; color: rgba(255,255,255,0.75); margin-bottom: 32px; }
+
+    .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    .btn-whatsapp {
+      background: #25D366;
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s;
+      font-family: 'Cairo', sans-serif;
+    }
+    .btn-whatsapp:hover { background: #1da851; transform: translateY(-2px); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #111;
+      color: #fff;
+      padding: 60px 40px 0;
+    }
+
+    .footer-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 48px;
+      padding-bottom: 48px;
+    }
+
+    .footer-brand .logo-text h1 { color: #fff; }
+    .footer-brand .logo-text span { color: rgba(255,255,255,0.5); }
+    .footer-brand p { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.8; margin-top: 16px; }
+
+    .footer-social {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .social-btn {
+      width: 36px;
+      height: 36px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #fff;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    .social-btn:hover { background: var(--red); transform: translateY(-2px); }
+
+    .footer-col h4 {
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 18px;
+      color: #fff;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    .footer-col h4::after {
+      content: '';
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 30px; height: 2px;
+      background: var(--red);
+    }
+
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 10px; }
+    .footer-links a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: #fff; }
+
+    .footer-contact { list-style: none; }
+    .footer-contact li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 14px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+    }
+    .footer-contact li .icon { color: var(--red); font-size: 15px; margin-top: 2px; flex-shrink: 0; }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 20px 0;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ===== SCROLL ANIMATION ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      nav .nav-main { padding: 12px 20px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu { display: block; }
+
+      .hero { margin-top: 90px; min-height: auto; }
+      .hero-content { grid-template-columns: 1fr; padding: 40px 20px; gap: 30px; }
+      .hero-images { display: none; }
+      .hero-stats { gap: 20px; }
+
+      section { padding: 60px 20px; }
+      .nav-top { padding: 6px 20px; font-size: 11px; }
+
+      .about-inner { grid-template-columns: 1fr; gap: 30px; }
+      .about-features { grid-template-columns: 1fr 1fr; }
+
+      .products-grid { grid-template-columns: 1fr 1fr; }
+      .stats-grid { grid-template-columns: 1fr; gap: 16px; }
+      .why-grid { grid-template-columns: 1fr; }
+
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+
+    @media (max-width: 600px) {
+      .hero-title { font-size: 26px; }
+      .products-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .about-features { grid-template-columns: 1fr; }
+      .hero-stats { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav id="navbar">
+  <div class="nav-top">
+    <div style="display:flex;gap:20px;align-items:center;">
+      <a href="https://wa.me/966598325976" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        966 59 832 5976+
+      </a>
+      <a href="#">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        الرياض، حي المنصور
+      </a>
+    </div>
+    <div style="font-size:12px;opacity:0.8;">تجهيزات مطاعم احترافية منذ 2019</div>
+  </div>
+
+  <div class="nav-main">
+    <a href="#" class="logo">
+      <svg class="logo-icon" viewBox="0 0 60 60" fill="none">
+        <circle cx="30" cy="30" r="28" stroke="#cc1f1f" stroke-width="2.5"/>
+        <g fill="#cc1f1f">
+          <rect x="26" y="4" width="8" height="10" rx="2"/>
+          <rect x="26" y="46" width="8" height="10" rx="2"/>
+          <rect x="4" y="26" width="10" height="8" rx="2"/>
+          <rect x="46" y="26" width="10" height="8" rx="2"/>
+          <rect x="9.5" y="9.5" width="8" height="10" rx="2" transform="rotate(45 13.5 14.5)"/>
+          <rect x="40.5" y="9.5" width="8" height="10" rx="2" transform="rotate(45 44.5 14.5)"/>
+          <rect x="9.5" y="40.5" width="8" height="10" rx="2" transform="rotate(45 13.5 45.5)"/>
+          <rect x="40.5" y="40.5" width="8" height="10" rx="2" transform="rotate(45 44.5 45.5)"/>
+        </g>
+        <circle cx="30" cy="30" r="10" fill="#cc1f1f"/>
+        <text x="30" y="34" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="Cairo">ر</text>
+      </svg>
+      <div class="logo-text">
+        <h1>رياض للتجهيزات</h1>
+        <span>معدات المطاعم والفنادق</span>
+      </div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#" class="active">الرئيسية</a></li>
+      <li><a href="#">المعدات والمنتجات</a></li>
+      <li><a href="#">الكاتلوج</a></li>
+      <li><a href="#">من نحن</a></li>
+      <li><a href="https://wa.me/966598325976" class="nav-cta">تواصل بنا</a></li>
+    </ul>
+
+    <div class="hamburger" id="hamburger" onclick="openMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Overlay -->
+<div class="mobile-overlay" id="mobileOverlay" onclick="closeMenu()"></div>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="closeMenu()">✕</button>
+  <div class="mobile-logo">
+    <h2>رياض للتجهيزات</h2>
+    <p style="font-size:12px;color:#888;">معدات المطاعم والفنادق</p>
+  </div>
+  <ul class="mobile-nav-links">
+    <li><a href="#">الرئيسية</a></li>
+    <li><a href="#">المعدات والمنتجات</a></li>
+    <li><a href="#">الكاتلوج</a></li>
+    <li><a href="#">من نحن</a></li>
+    <li><a href="https://wa.me/966598325976" style="color:var(--red);font-weight:800;">تواصل بنا</a></li>
+  </ul>
+  <div style="margin-top:32px;padding-top:24px;border-top:1px solid #eee;">
+    <a href="https://wa.me/966598325976" target="_blank" style="display:flex;align-items:center;gap:10px;font-size:14px;color:#25D366;font-weight:700;text-decoration:none;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      966 59 832 5976+
+    </a>
+  </div>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-gear">⚙</div>
+
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <span></span>
+        الرياض، حي المنصور
+      </div>
+
+      <h1 class="hero-title">
+        أفضل تجهيزات<br/>
+        <span class="accent">المطاعم والمخابز</span><br/>
+        في المملكة
+      </h1>
+
+      <p class="hero-subtitle">
+        نوفر لك أحدث معدات المطاعم والمخابز بجودة عالية وأسعار منافسة.
+        من الأفران الكهربائية إلى مقالي الفلافل، لدينا كل ما تحتاجه لمطعمك.
+      </p>
+
+      <div class="hero-actions">
+        <a href="https://wa.me/966598325976" class="btn-primary" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          تواصل واتساب
+        </a>
+        <a href="#products" class="btn-outline">
+          عرض المنتجات
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="num">5+</div>
+          <div class="lbl">سنوات خبرة</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">500+</div>
+          <div class="lbl">عميل راضٍ</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">100+</div>
+          <div class="lbl">منتج متاح</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-images">
+      <div class="hero-img-card">
+        <img src="Electric-oven-with-stone-Double-deck.webp" alt="فرن كهربائي طابقين" onerror="this.style.background='#444'"/>
+      </div>
+      <div class="hero-img-card">
+        <img src="HTD-40ercengsipandian.webp" alt="فرن احترافي" onerror="this.style.background='#444'"/>
+      </div>
+      <div class="hero-img-card">
+        <img src="images.jpg" alt="فرن مخبز" onerror="this.style.background='#444'"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<div class="about-banner">
+  <div class="about-inner">
+    <div>
+      <h2>رياض للتجهيزات<br/>أكثر من مجرد معدات</h2>
+      <p>
+        تأسست شركة رياض للتجهيزات عام 2019 في الرياض، حي المنصور، لتكون الشريك الأمثل لأصحاب المطاعم والمخابز في المملكة العربية السعودية.
+        نوفر أحدث معدات الطهي والتجهيز بجودة لا مثيل لها وخدمة ما بعد بيع متميزة.
+      </p>
+      <a href="#">
+        تعرف علينا أكثر
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      </a>
+    </div>
+    <div class="about-features">
+      <div class="about-feat">
+        <div class="icon">🏆</div>
+        <h4>جودة لا تُضاهى</h4>
+        <p>جميع منتجاتنا مصنوعة وفق أعلى معايير الجودة</p>
+      </div>
+      <div class="about-feat">
+        <div class="icon">⚡</div>
+        <h4>ابتكار مستمر</h4>
+        <p>نواكب أحدث تقنيات تجهيز المطاعم عالمياً</p>
+      </div>
+      <div class="about-feat">
+        <div class="icon">🛠️</div>
+        <h4>خدمة ما بعد البيع</h4>
+        <p>فريق متخصص لدعمك على مدار الساعة</p>
+      </div>
+      <div class="about-feat">
+        <div class="icon">🚚</div>
+        <h4>توصيل سريع</h4>
+        <p>نوصل لجميع مناطق المملكة بسرعة وأمان</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PRODUCTS ===== -->
+<section class="products-section" id="products">
+  <div class="section-header reveal">
+    <div class="section-label">منتجاتنا</div>
+    <h2 class="section-title">أبرز <span class="red">معداتنا</span></h2>
+    <p class="section-desc">نوفر مجموعة متكاملة من معدات الطهي والتجهيز للمطاعم والمخابز والفنادق</p>
+  </div>
+
+  <div class="products-grid">
+    <div class="product-card reveal">
+      <div class="product-tag">الأكثر طلباً</div>
+      <div class="product-img">
+        <img src="Electric-oven-with-stone-Double-deck.webp" alt="فرن كهربائي طابقين"/>
+        <div class="product-overlay"><a href="https://wa.me/966598325976">اسأل عن السعر</a></div>
+      </div>
+      <div class="product-info">
+        <h3>فرن كهربائي طابقين مع حجر</h3>
+        <p>فرن احترافي بطابقين مزود بحجر بيتزا وتحكم دقيق بالحرارة</p>
+      </div>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="product-img">
+        <img src="HTD-40ercengsipandian.webp" alt="فرن كهربائي"/>
+        <div class="product-overlay"><a href="https://wa.me/966598325976">اسأل عن السعر</a></div>
+      </div>
+      <div class="product-info">
+        <h3>فرن كهربائي تجاري احترافي</h3>
+        <p>فرن ذو أداء عالٍ مناسب للمخابز والمطاعم الكبيرة</p>
+      </div>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="product-img">
+        <img src="images.jpg" alt="فرن مخبز"/>
+        <div class="product-overlay"><a href="https://wa.me/966598325976">اسأل عن السعر</a></div>
+      </div>
+      <div class="product-info">
+        <h3>فرن مخبز كهربائي</h3>
+        <p>فرن مخصص للمخابز بسعة كبيرة وتوزيع متساوٍ للحرارة</p>
+      </div>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="product-img">
+        <img src="images__1_.jpg" alt="مقلاة كهربائية"/>
+        <div class="product-overlay"><a href="https://wa.me/966598325976">اسأل عن السعر</a></div>
+      </div>
+      <div class="product-info">
+        <h3>مقلاة كهربائية مزدوجة</h3>
+        <p>مقلاة مزدوجة للقلي العميق مناسبة لجميع المطاعم</p>
+      </div>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="product-img">
+        <img src="1774269935392_image.png" alt="سلمندر تسخين"/>
+        <div class="product-overlay"><a href="https://wa.me/966598325976">اسأل عن السعر</a></div>
+      </div>
+      <div class="product-info">
+        <h3>سلمندر تسخين احترافي</h3>
+        <p>جهاز سلمندر كهربائي لتسخين الأطباق والطهي السريع</p>
+      </div>
+    </div>
+
+    <div class="product-card reveal" style="display:flex;align-items:center;justify-content:center;background:var(--red);min-height:300px;">
+      <div style="text-align:center;color:#fff;padding:32px;">
+        <div style="font-size:48px;margin-bottom:16px;">📦</div>
+        <h3 style="font-size:18px;font-weight:900;margin-bottom:10px;color:#fff;">شاهد كامل الكاتلوج</h3>
+        <p style="font-size:13px;color:rgba(255,255,255,0.8);margin-bottom:20px;">لديناالكثير المنتجات لتجهيز مطعمك</p>
+        <a href="https://wa.me/966598325976" target="_blank" style="background:#fff;color:var(--red);font-weight:700;font-size:13px;padding:10px 24px;border-radius:8px;text-decoration:none;display:inline-block;">
+          تواصل معنا
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STATS ===== -->
+<section class="stats-section">
+  <div class="section-header reveal">
+    <div class="section-label">إنجازاتنا</div>
+    <h2 class="section-title">أرقام <span class="red">تتحدث عن نفسها</span></h2>
+  </div>
+  <div class="stats-grid">
+    <!-- <div class="stat-card reveal">
+      <div class="stat-num">500+</div>
+      <div class="stat-label">مطعم ومنشأة</div>
+    </div> -->
+    <div class="stat-card reveal">
+      <div class="stat-num">100+</div>
+      <div class="stat-label">منتج متاح</div>
+    </div>
+    <div class="stat-card reveal">
+      <div class="stat-num">5+</div>
+      <div class="stat-label">سنوات خبرة</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHY US ===== -->
+<section class="why-section">
+  <div class="section-header reveal">
+    <div class="section-label">لماذا نحن</div>
+    <h2 class="section-title">لماذا تختار <span class="red">رياض للتجهيزات؟</span></h2>
+  </div>
+
+  <div class="why-grid">
+    <div class="why-card reveal">
+      <div class="why-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#cc1f1f" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>جودة مضمونة</h3>
+      <p>جميع منتجاتنا مصنوعة من الفولاذ المقاوم للصدأ درجة أولى مع ضمان على جميع الأجهزة</p>
+    </div>
+
+    <div class="why-card reveal">
+      <div class="why-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#cc1f1f" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <h3>خدمة سريعة</h3>
+      <p>نرد على استفساراتك خلال دقائق عبر الواتساب ونوفر توصيلاً سريعاً لجميع مناطق المملكة</p>
+    </div>
+
+    <div class="why-card reveal">
+      <div class="why-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#cc1f1f" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <h3>خبرة وكفاءة</h3>
+      <p>فريق متخصص بخبرة أكثر من 5 سنوات في مجال تجهيز المطاعم والمخابز في السوق السعودي</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta-section">
+  <div class="cta-content">
+    <h2>جاهز لتجهيز مطعمك؟</h2>
+    <p>تواصل معنا الآن واحصل على استشارة مجانية وعرض سعر خاص لمشروعك</p>
+    <div class="cta-actions">
+      <a href="https://wa.me/966598325976" class="btn-whatsapp" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        تواصل واتساب الآن
+      </a>
+      <a href="tel:+966598325976" class="btn-outline" style="border-color:rgba(255,255,255,0.4);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+        اتصل بنا مباشرة
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo-text">
+        <h1 style="font-size:20px;font-weight:900;color:#fff;font-family:'Tajawal',sans-serif;">رياض للتجهيزات</h1>
+        <span style="font-size:12px;color:rgba(255,255,255,0.5);">معدات المطاعم والفنادق</span>
+      </div>
+      <p>نوفر أحدث معدات الطهي وتجهيز المطاعم في المملكة العربية السعودية منذ عام 2019، بجودة عالية وخدمة متميزة.</p>
+      <div class="footer-social">
+        <a href="https://wa.me/966598325976" class="social-btn" target="_blank" title="واتساب">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+        <!-- <a href="#" class="social-btn" title="انستجرام">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a> -->
+        <!-- <a href="#" class="social-btn" title="فيسبوك">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a> -->
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>روابط سريعة</h4>
+      <ul class="footer-links">
+        <li><a href="#">الرئيسية</a></li>
+        <li><a href="#">المعدات والمنتجات</a></li>
+        <li><a href="#">الكاتلوج</a></li>
+        <li><a href="#">من نحن</a></li>
+        <li><a href="#">تواصل بنا</a></li>
+      </ul>
+    </div>
+
+    <!-- <div class="footer-col">
+      <h4>منتجاتنا</h4>
+      <ul class="footer-links">
+        <li><a href="#">أفران خبيز</a></li>
+        <li><a href="#">أفران طهي</a></li>
+        <li><a href="#">مقالي فلافل</a></li>
+        <li><a href="#">تبريد وتخزين</a></li>
+        <li><a href="#">تسخين الطعام</a></li>
+      </ul>
+    </div> -->
+
+    <div class="footer-col">
+      <h4>تواصل معنا</h4>
+      <ul class="footer-contact">
+        <li>
+          <span class="icon">📍</span>
+          <span>الرياض، حي المنصور، المملكة العربية السعودية</span>
+        </li>
+        <li>
+          <span class="icon">📱</span>
+          <span dir="ltr">+966 59 832 5976</span>
+        </li>
+        <li>
+          <span class="icon">💬</span>
+          <a href="https://wa.me/966598325976" style="color:rgba(255,255,255,0.6);text-decoration:none;" dir="ltr">+966 59 832 5976 (WhatsApp)</a>
+        </li>
+        <li>
+          <span class="icon">🕐</span>
+          <span>السبت – الخميس: 8ص – 8م</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2024 رياض للتجهيزات. جميع الحقوق محفوظة.</p>
+  </div>
+</footer>
+
+<script src="index.js">
+
+</script>
+</body>
+</html>

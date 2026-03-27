@@ -1,4 +1,4 @@
-  // Navbar scroll effect
+// Navbar scroll effect
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 50);
@@ -27,6 +27,16 @@
   }, { threshold: 0.1 });
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Category filter
+  function filterCat(cat) {
+    document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    document.querySelectorAll('#productsGrid .product-card').forEach(card => {
+      const c = card.dataset.cat;
+      card.style.display = (cat === 'all' || c === cat || c === 'all') ? '' : 'none';
+    });
+  }
 
   // Counter animation
   function animateCounter(el, target, duration = 1500) {

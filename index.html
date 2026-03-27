@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>رياض للتجهيزات - معدات المطاعم</title>
+  <title>مشعل سفر عبدالرحمن - تجهيزات المطاعم</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   <style>
@@ -541,7 +541,7 @@
       max-width: 900px;
       margin: 0 auto;
       display: grid;
-      /* grid-template-columns: repeat(3, 1fr); */
+      grid-template-columns: repeat(2, 1fr);
       gap: 24px;
     }
 
@@ -739,6 +739,35 @@
       margin: 0 auto;
     }
 
+    /* ===== CATEGORY TABS ===== */
+    .cat-tab {
+      background: #fff;
+      border: 2px solid #e0e0e0;
+      color: #555;
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Cairo', sans-serif;
+      transition: all 0.2s;
+    }
+    .cat-tab:hover { border-color: var(--red); color: var(--red); }
+    .cat-tab.active { background: var(--red); border-color: var(--red); color: #fff; }
+
+    .ask-btn {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--red);
+      text-decoration: none;
+      border-bottom: 2px solid rgba(204,31,31,0.2);
+      padding-bottom: 2px;
+      transition: border-color 0.2s;
+    }
+    .ask-btn:hover { border-color: var(--red); }
+
     /* ===== SCROLL ANIMATION ===== */
     .reveal {
       opacity: 0;
@@ -820,8 +849,8 @@
         <text x="30" y="34" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="Cairo">ر</text>
       </svg>
       <div class="logo-text">
-        <h1> مشعل سفر عبدالرحمن</h1>
-        <span>معدات المطاعم</span>
+        <h1>مشعل سفر عبدالرحمن</h1>
+        <span>معدات المطاعم والفنادق</span>
       </div>
     </a>
 
@@ -846,8 +875,8 @@
 <div class="mobile-menu" id="mobileMenu">
   <button class="mobile-close" onclick="closeMenu()">✕</button>
   <div class="mobile-logo">
-    <h2> مشعل سفر عبدالرحمن</h2>
-    <p style="font-size:12px;color:#888;">معدات المطاعم </p>
+    <h2>مشعل سفر عبدالرحمن</h2>
+    <p style="font-size:12px;color:#888;">معدات المطاعم والفنادق</p>
   </div>
   <ul class="mobile-nav-links">
     <li><a href="#">الرئيسية</a></li>
@@ -916,13 +945,13 @@
 
     <div class="hero-images">
       <div class="hero-img-card">
-        <img src="Electric-oven-with-stone-Double-deck.webp" alt="فرن كهربائي طابقين" onerror="this.style.background='#444'"/>
+        <img src="img/6b6d7db5-5d26-4e0b-bc3f-59fc650660be-thumbnail-500x500-70.jpg" alt="فرن كهربائي طابقين" onerror="this.style.background='#444'"/>
       </div>
       <div class="hero-img-card">
-        <img src="HTD-40ercengsipandian.webp" alt="فرن احترافي" onerror="this.style.background='#444'"/>
+        <img src="img/oven1.webp" alt="فرن احترافي" onerror="this.style.background='#444'"/>
       </div>
       <div class="hero-img-card">
-        <img src="images.jpg" alt="فرن مخبز" onerror="this.style.background='#444'"/>
+        <img src="img/StandardElectricOven2.png" alt="فرن مخبز" onerror="this.style.background='#444'"/>
       </div>
     </div>
   </div>
@@ -932,9 +961,9 @@
 <div class="about-banner">
   <div class="about-inner">
     <div>
-      <h2> مشعل سفر عبدالرحمن<br/>أكثر من مجرد معدات</h2>
+      <h2>مشعل سفر عبدالرحمن<br/>أكثر من مجرد معدات</h2>
       <p>
-        تأسست شركة رياض للتجهيزات عام 2019 في الرياض، حي المنصور، لتكون الشريك الأمثل لأصحاب المطاعم والمخابز في المملكة العربية السعودية.
+        تأسست شركة مشعل سفر عبدالرحمن عام 2019 في الرياض، حي المنصور، لتكون الشريك الأمثل لأصحاب المطاعم والمخابز في المملكة العربية السعودية.
         نوفر أحدث معدات الطهي والتجهيز بجودة لا مثيل لها وخدمة ما بعد بيع متميزة.
       </p>
       <a href="#">
@@ -972,76 +1001,113 @@
   <div class="section-header reveal">
     <div class="section-label">منتجاتنا</div>
     <h2 class="section-title">أبرز <span class="red">معداتنا</span></h2>
-    <p class="section-desc">نوفر مجموعة متكاملة من معدات الطهي والتجهيز للمطاعم والمخابز </p>
+    <p class="section-desc">نوفر مجموعة متكاملة من معدات الطهي والتجهيز للمطاعم والمخابز والفنادق</p>
   </div>
 
-  <div class="products-grid">
-    <div class="product-card reveal">
+  <!-- Category Tabs -->
+  <div style="display:flex;gap:12px;justify-content:center;margin-bottom:36px;flex-wrap:wrap;">
+    <button class="cat-tab active" onclick="filterCat('all')">الكل</button>
+    <button class="cat-tab" onclick="filterCat('oven')"> أفران بيتزا</button>
+    <button class="cat-tab" onclick="filterCat('warmer')"> سخانات بطاطا</button>
+  </div>
+
+  <div class="products-grid" id="productsGrid">
+
+    <!-- ===== أفران بيتزا ===== -->
+    <div class="product-card reveal" data-cat="oven">
       <div class="product-tag">الأكثر طلباً</div>
-      <div class="product-img">
-        <img src="Electric-oven-with-stone-Double-deck.webp" alt="فرن كهربائي طابقين"/>
-        <div class="product-overlay"><a href="https://wa.me/966598325976">اسأل عن السعر</a></div>
+      <div class="product-img" style="background:#f0f0f0;">
+        <img src="img/6b6d7db5-5d26-4e0b-bc3f-59fc650660be-thumbnail-500x500-70.jpg" alt="فرن بيتزا حجري دورين TEP-202A"/>
+        <div class="product-overlay"><a href="https://wa.me/966598325976?text=استفسار عن: فرن بيتزا TEP-202A">اسأل عن السعر</a></div>
       </div>
       <div class="product-info">
-        <h3>فرن كهربائي طابقين مع حجر</h3>
-        <p>فرن احترافي بطابقين مزود بحجر بيتزا وتحكم دقيق بالحرارة</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+          <span style="font-size:10px;color:#aaa;font-weight:600;">TEP-202A</span>
+          <span style="font-size:10px;background:#f0f0f0;padding:2px 8px;border-radius:20px;color:#666;">CHINA</span>
+        </div>
+        <h3>فرن بيتزا حجري دورين كهرباء</h3>
+        <p>2 طابق • 1 صينية 40×60 سم • حجر بيتزا</p>
+        <a href="https://wa.me/966598325976?text=استفسار عن: فرن بيتزا TEP-202A" target="_blank" class="ask-btn">اسأل عن السعر ←</a>
       </div>
     </div>
 
-    <div class="product-card reveal">
-      <div class="product-img">
-        <img src="HTD-40ercengsipandian.webp" alt="فرن كهربائي"/>
-        <div class="product-overlay"><a href="https://wa.me/966598325976">اسأل عن السعر</a></div>
+    <div class="product-card reveal" data-cat="oven">
+      <div class="product-img" style="background:#f0f0f0;">
+        <img src="img/StandardElectricOven2.png" alt="فرن بيتزا 2 دور 2 صينية PL-36"/>
+        <div class="product-overlay"><a href="https://wa.me/966598325976?text=استفسار عن: فرن بيتزا PL-36">اسأل عن السعر</a></div>
       </div>
       <div class="product-info">
-        <h3>فرن كهربائي تجاري احترافي</h3>
-        <p>فرن ذو أداء عالٍ مناسب للمخابز والمطاعم الكبيرة</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+          <span style="font-size:10px;color:#aaa;font-weight:600;">PL-36</span>
+          <span style="font-size:10px;background:#f0f0f0;padding:2px 8px;border-radius:20px;color:#666;">CHINA</span>
+        </div>
+        <h3>فرن بيتزا 2 دور 2 صينية</h3>
+        <p>122×82×124 سم • 380V • 13.2 KW • رف صاج أو حجري</p>
+        <a href="https://wa.me/966598325976?text=استفسار عن: فرن بيتزا PL-36" target="_blank" class="ask-btn">اسأل عن السعر ←</a>
       </div>
     </div>
 
-    <div class="product-card reveal">
-      <div class="product-img">
-        <img src="images.jpg" alt="فرن مخبز"/>
-        <div class="product-overlay"><a href="https://wa.me/966598325976">اسأل عن السعر</a></div>
+    <div class="product-card reveal" data-cat="oven">
+      <div class="product-img" style="background:#f0f0f0;">
+        <img src="img/oven1.webp" alt="فرن بيتزا دور واحد PL-12"/>
+        <div class="product-overlay"><a href="https://wa.me/966598325976?text=استفسار عن: فرن بيتزا PL-12">اسأل عن السعر</a></div>
       </div>
       <div class="product-info">
-        <h3>فرن مخبز كهربائي</h3>
-        <p>فرن مخصص للمخابز بسعة كبيرة وتوزيع متساوٍ للحرارة</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+          <span style="font-size:10px;color:#aaa;font-weight:600;">PL-12</span>
+          <span style="font-size:10px;background:#f0f0f0;padding:2px 8px;border-radius:20px;color:#666;">CHINA</span>
+        </div>
+        <h3>فرن بيتزا حجري دور واحد</h3>
+        <p>122×82×55 سم • 380V • 7 KW • 2 صينية 40×60</p>
+        <a href="https://wa.me/966598325976?text=استفسار عن: فرن بيتزا PL-12" target="_blank" class="ask-btn">اسأل عن السعر ←</a>
       </div>
     </div>
 
-    <div class="product-card reveal">
-      <div class="product-img">
-        <img src="images__1_.jpg" alt="مقلاة كهربائية"/>
-        <div class="product-overlay"><a href="https://wa.me/966598325976">اسأل عن السعر</a></div>
+    <!-- ===== سخانات بطاطا ===== -->
+    <div class="product-card reveal" data-cat="warmer">
+      <div class="product-img" style="background:#f0f0f0;">
+        <img src="img/D_NQ_NP_957960-MLC95131083662_102025-O.webp" alt="سخان بطاطا TCW-370"/>
+        <div class="product-overlay"><a href="https://wa.me/966598325976?text=استفسار عن: سخان بطاطا TCW-370">اسأل عن السعر</a></div>
       </div>
       <div class="product-info">
-        <h3>مقلاة كهربائية مزدوجة</h3>
-        <p>مقلاة مزدوجة للقلي العميق مناسبة لجميع المطاعم</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+          <span style="font-size:10px;color:#aaa;font-weight:600;">TCW-370</span>
+          <span style="font-size:10px;background:#f0f0f0;padding:2px 8px;border-radius:20px;color:#666;">CHINA</span>
+        </div>
+        <h3>سخان بطاطا طاولة</h3>
+        <p>560×610×340 مم • 220V • 1 KW</p>
+        <a href="https://wa.me/966598325976?text=استفسار عن: سخان بطاطا TCW-370" target="_blank" class="ask-btn">اسأل عن السعر ←</a>
       </div>
     </div>
 
-    <div class="product-card reveal">
-      <div class="product-img">
-        <img src="1774269935392_image.png" alt="سلمندر تسخين"/>
-        <div class="product-overlay"><a href="https://wa.me/966598325976">اسأل عن السعر</a></div>
+    <div class="product-card reveal" data-cat="warmer">
+      <div class="product-img" style="background:#f0f0f0;">
+        <img src="img/eabf140b-90f3-44ee-9a51-056006932d20-thumbnail-500x500-70.jpg" alt="سخان بطاطا مع خزانة SY-1000"/>
+        <div class="product-overlay"><a href="https://wa.me/966598325976?text=استفسار عن: سخان بطاطا SY-1000">اسأل عن السعر</a></div>
       </div>
       <div class="product-info">
-        <h3>سلمندر تسخين احترافي</h3>
-        <p>جهاز سلمندر كهربائي لتسخين الأطباق والطهي السريع</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+          <span style="font-size:10px;color:#aaa;font-weight:600;">SY-1000</span>
+          <span style="font-size:10px;background:#f0f0f0;padding:2px 8px;border-radius:20px;color:#666;">CHINA</span>
+        </div>
+        <h3>سخان بطاطا مع خزانة 3 لمبة</h3>
+        <p>1570×700×1000 مم • 220V • 1 KW</p>
+        <a href="https://wa.me/966598325976?text=استفسار عن: سخان بطاطا SY-1000" target="_blank" class="ask-btn">اسأل عن السعر ←</a>
       </div>
     </div>
 
-    <div class="product-card reveal" style="display:flex;align-items:center;justify-content:center;background:var(--red);min-height:300px;">
+    <!-- كارد كاتلوج -->
+    <div class="product-card reveal" data-cat="all" style="display:flex;align-items:center;justify-content:center;background:var(--red);min-height:300px;">
       <div style="text-align:center;color:#fff;padding:32px;">
         <div style="font-size:48px;margin-bottom:16px;">📦</div>
         <h3 style="font-size:18px;font-weight:900;margin-bottom:10px;color:#fff;">شاهد كامل الكاتلوج</h3>
-        <p style="font-size:13px;color:rgba(255,255,255,0.8);margin-bottom:20px;">لديناالكثير المنتجات لتجهيز مطعمك</p>
+        <p style="font-size:13px;color:rgba(255,255,255,0.8);margin-bottom:20px;"> لدينا الكثير من  المنتجات لتجهيز مطعمك </p>
         <a href="https://wa.me/966598325976" target="_blank" style="background:#fff;color:var(--red);font-weight:700;font-size:13px;padding:10px 24px;border-radius:8px;text-decoration:none;display:inline-block;">
           تواصل معنا
         </a>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -1071,7 +1137,7 @@
 <section class="why-section">
   <div class="section-header reveal">
     <div class="section-label">لماذا نحن</div>
-    <h2 class="section-title">لماذا تختار <span class="red"> مشعل سفر عبدالرحمن؟</span></h2>
+    <h2 class="section-title">لماذا تختار <span class="red">مشعل سفر عبدالرحمن؟</span></h2>
   </div>
 
   <div class="why-grid">
@@ -1124,7 +1190,7 @@
   <div class="footer-grid">
     <div class="footer-brand">
       <div class="logo-text">
-        <h1 style="font-size:20px;font-weight:900;color:#fff;font-family:'Tajawal',sans-serif;">رياض للتجهيزات</h1>
+        <h1 style="font-size:20px;font-weight:900;color:#fff;font-family:'Tajawal',sans-serif;">مشعل سفر عبدالرحمن</h1>
         <span style="font-size:12px;color:rgba(255,255,255,0.5);">معدات المطاعم والفنادق</span>
       </div>
       <p>نوفر أحدث معدات الطهي وتجهيز المطاعم في المملكة العربية السعودية منذ عام 2019، بجودة عالية وخدمة متميزة.</p>
@@ -1187,12 +1253,12 @@
   </div>
 
   <div class="footer-bottom">
-    <p>© 2024 رياض للتجهيزات. جميع الحقوق محفوظة.</p>
+    <p>© 2026 مشعل سفر عبدالرحمن. جميع الحقوق محفوظة.</p>
   </div>
 </footer>
 
 <script src="index.js">
-
+  
 </script>
 </body>
 </html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>من نحن - شركة حمدان</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{--red:#cc1f1f;--red-dark:#a01515;--red-light:#e63030;--gray:#f5f5f5}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Cairo',sans-serif;background:#fff;color:#222;overflow-x:hidden}
+    nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#fff;box-shadow:0 2px 20px rgba(0,0,0,.1);transition:.3s}
+    nav.scrolled{box-shadow:0 4px 30px rgba(204,31,31,.15)}
+    .nav-top{background:var(--red);padding:6px 40px;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#fff}
+    .nav-top a{color:#fff;text-decoration:none;display:flex;align-items:center;gap:6px}
+    .nav-main{display:flex;align-items:center;justify-content:space-between;padding:12px 40px}
+    .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+    .logo-icon{width:60px;height:60px}
+    .logo-text h1{font-size:22px;font-weight:900;color:var(--red);line-height:1.1;font-family:'Tajawal',sans-serif}
+    .logo-text span{font-size:11px;color:#666;display:block}
+    .nav-links{display:flex;align-items:center;gap:6px;list-style:none}
+    .nav-links a{text-decoration:none;color:#333;font-size:14px;font-weight:600;padding:8px 16px;border-radius:6px;transition:.2s;position:relative}
+    .nav-links a:hover,.nav-links a.active{color:var(--red);background:rgba(204,31,31,.06)}
+    .nav-links a.active::after{content:'';position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:20px;height:2px;background:var(--red);border-radius:2px}
+    .nav-cta{background:var(--red);color:#fff!important;border-radius:8px!important;padding:10px 22px!important}
+    .nav-cta:hover{background:var(--red-dark)!important;color:#fff!important}
+    .hamburger{display:none;cursor:pointer;flex-direction:column;gap:5px;padding:8px}
+    .hamburger span{display:block;width:25px;height:2px;background:var(--red);border-radius:2px}
+    .mobile-menu{display:none;position:fixed;top:0;right:-100%;width:75%;max-width:320px;height:100vh;background:#fff;z-index:2000;padding:30px 24px;box-shadow:-8px 0 40px rgba(0,0,0,.15);transition:right .35s}
+    .mobile-menu.open{right:0}.mobile-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:1999}.mobile-overlay.open{display:block}
+    .mobile-close{position:absolute;top:16px;left:16px;background:none;border:1px solid #ddd;width:36px;height:36px;border-radius:6px;cursor:pointer;font-size:18px;color:#666}
+    .mobile-nav-links{list-style:none;margin-top:28px}.mobile-nav-links li{border-bottom:1px solid #f0f0f0}.mobile-nav-links a{display:block;padding:14px 8px;font-size:16px;font-weight:600;color:#333;text-decoration:none}
+    .hero{margin-top:110px;min-height:88vh;background:linear-gradient(135deg,#1a1a1a 0%,#2d0a0a 42%,#8b1a1a 100%);position:relative;overflow:hidden;display:flex;align-items:center}
+    .hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 20% 50%, rgba(204,31,31,.3) 0%, transparent 50%),radial-gradient(circle at 80% 20%, rgba(204,31,31,.15) 0%, transparent 40%)}
+    .hero-content{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:60px 40px;display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;width:100%}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:6px 16px;font-size:12px;color:rgba(255,255,255,.85);margin-bottom:20px}
+    .hero-badge span{width:8px;height:8px;background:#4ade80;border-radius:50%}
+    .hero-title{font-size:clamp(32px,4vw,54px);font-weight:900;line-height:1.2;margin-bottom:20px;color:#fff;font-family:'Tajawal',sans-serif}
+    .hero-title .accent{color:var(--red-light)}
+    .hero-subtitle{font-size:16px;color:rgba(255,255,255,.78);line-height:1.9;margin-bottom:34px}
+    .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+    .btn-primary,.btn-outline,.btn-whatsapp{font-family:'Cairo',sans-serif;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:.25s;font-weight:700}
+    .btn-primary{background:var(--red);color:#fff;padding:14px 32px;border-radius:10px}.btn-primary:hover{background:var(--red-dark);transform:translateY(-2px)}
+    .btn-outline{background:transparent;color:#fff;padding:14px 32px;border-radius:10px;border:2px solid rgba(255,255,255,.4)}.btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.1)}
+    .hero-stats{display:flex;gap:30px;margin-top:40px;padding-top:28px;border-top:1px solid rgba(255,255,255,.15);flex-wrap:wrap}
+    .hero-stat .num{font-size:28px;font-weight:900;color:var(--red-light);font-family:'Tajawal',sans-serif}
+    .hero-stat .lbl{font-size:12px;color:rgba(255,255,255,.6)}
+    .hero-card-wrap{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .glass-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:16px;backdrop-filter:blur(8px);padding:22px;color:#fff}
+    .glass-card.large{grid-column:span 2;min-height:220px;display:flex;align-items:end;background:linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.55)), url('../img/6b6d7db5-5d26-4e0b-bc3f-59fc650660be-thumbnail-500x500-70.jpg') center/cover no-repeat}
+    .glass-card h3{font-size:20px;font-weight:900;margin-bottom:8px;font-family:'Tajawal',sans-serif}
+    .glass-card p{font-size:14px;color:rgba(255,255,255,.84);line-height:1.8}
+    section{padding:80px 40px}
+    .section-header{text-align:center;margin-bottom:52px}
+    .section-label{display:inline-block;background:rgba(204,31,31,.08);color:var(--red);font-size:12px;font-weight:700;padding:5px 14px;border-radius:999px;margin-bottom:14px}
+    .section-title{font-size:clamp(24px,3vw,38px);font-weight:900;color:#1a1a1a;font-family:'Tajawal',sans-serif;line-height:1.3}
+    .section-title .red{color:var(--red)}
+    .section-desc{font-size:15px;color:#666;margin-top:14px;max-width:650px;margin-left:auto;margin-right:auto;line-height:1.8}
+    .story-section,.why-section{background:var(--gray)}
+    .story-grid,.values-grid,.why-grid,.stats-grid,.contact-wrap,.footer-grid{max-width:1150px;margin:0 auto;display:grid;gap:24px}
+    .story-grid,.contact-wrap{grid-template-columns:1.1fr .9fr}.values-grid,.why-grid{grid-template-columns:repeat(3,1fr)}.stats-grid{grid-template-columns:repeat(4,1fr)}
+    .story-card,.value-card,.why-card,.stat-card,.contact-box,.promise-card{background:#fff;border-radius:16px;overflow:hidden}
+    .story-card{padding:34px 30px;box-shadow:0 2px 20px rgba(0,0,0,.05)}.story-card h3,.promise-card h3,.contact-box h3{font-size:26px;font-weight:900;margin-bottom:16px;font-family:'Tajawal',sans-serif}
+    .story-card p{color:#666;line-height:2;font-size:15px;margin-bottom:16px}
+    .story-list{list-style:none;display:grid;gap:12px;margin-top:20px}.story-list li{background:rgba(204,31,31,.05);border:1px solid rgba(204,31,31,.1);padding:14px 16px;border-radius:12px;color:#444;font-size:14px;line-height:1.8}
+    .promise-card{background:linear-gradient(135deg,#cc1f1f 0%,#8f1212 100%);color:#fff;padding:34px 28px}.promise-card p{line-height:1.9;color:rgba(255,255,255,.85);margin-bottom:24px;font-size:15px}
+    .promise-points{display:grid;gap:12px}.promise-points div{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:14px 16px;font-size:14px;line-height:1.8}
+    .value-card,.why-card{padding:30px 24px;box-shadow:0 2px 18px rgba(0,0,0,.04);transition:.3s}.value-card:hover,.why-card:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(0,0,0,.08)}
+    .value-icon,.why-icon{width:60px;height:60px;border-radius:16px;background:rgba(204,31,31,.08);display:flex;align-items:center;justify-content:center;margin-bottom:18px;color:var(--red);font-size:24px;font-weight:900}
+    .why-icon{margin:0 auto 20px}.why-card{text-align:center}
+    .value-card h3,.why-card h3{font-size:18px;font-weight:800;margin-bottom:10px;color:#1a1a1a}.value-card p,.why-card p{font-size:14px;color:#707070;line-height:1.9}
+    .stats-section{padding:70px 40px}.stat-card{text-align:center;padding:36px 24px;background:var(--gray);position:relative}.stat-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:var(--red)}
+    .stat-num{font-size:46px;font-weight:900;color:var(--red);font-family:'Tajawal',sans-serif;line-height:1;margin-bottom:8px}.stat-label{font-size:15px;color:#555;font-weight:600}
+    .contact-section{background:linear-gradient(135deg,#1a1a1a 0%,#8b1a1a 100%);position:relative;overflow:hidden}.contact-section::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%, rgba(204,31,31,.25) 0%, transparent 60%)}
+    .contact-wrap{position:relative;z-index:1;align-items:center}.contact-content h2{font-size:38px;font-weight:900;color:#fff;margin-bottom:16px;font-family:'Tajawal',sans-serif}.contact-content p{font-size:16px;color:rgba(255,255,255,.78);line-height:1.9;margin-bottom:30px}
+    .btn-whatsapp{background:#25D366;color:#fff;padding:14px 32px;border-radius:10px;font-size:15px}.btn-whatsapp:hover{background:#1da851;transform:translateY(-2px)}
+    .contact-box{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(8px);padding:28px;color:#fff}.contact-box ul{list-style:none;display:grid;gap:14px;margin-bottom:20px}.contact-box li{font-size:14px;color:rgba(255,255,255,.82);line-height:1.8;display:flex;gap:10px;align-items:flex-start}.contact-box .badge{display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:8px 14px;font-size:13px;color:rgba(255,255,255,.86)}
+    footer{background:#111;color:#fff;padding:60px 40px 0}.footer-grid{grid-template-columns:2fr 1fr 1fr;padding-bottom:48px}
+    .footer-brand .logo-text h1{color:#fff}.footer-brand .logo-text span{color:rgba(255,255,255,.5)}.footer-brand p{font-size:13px;color:rgba(255,255,255,.55);line-height:1.9;margin-top:16px}
+    .footer-social{display:flex;gap:10px;margin-top:20px}.social-btn{width:36px;height:36px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;transition:.2s}.social-btn:hover{background:var(--red);transform:translateY(-2px)}
+    .footer-col h4{font-size:14px;font-weight:800;margin-bottom:18px;color:#fff;position:relative;padding-bottom:10px}.footer-col h4::after{content:'';position:absolute;bottom:0;right:0;width:30px;height:2px;background:var(--red)}
+    .footer-links,.footer-contact{list-style:none}.footer-links li,.footer-contact li{margin-bottom:12px}
+    .footer-links a{font-size:13px;color:rgba(255,255,255,.55);text-decoration:none}.footer-links a:hover{color:#fff}
+    .footer-contact li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:rgba(255,255,255,.6);line-height:1.8}.footer-contact .icon{color:var(--red);font-size:15px;margin-top:2px;flex-shrink:0}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding:20px 0;text-align:center;font-size:12px;color:rgba(255,255,255,.35);max-width:1200px;margin:0 auto}
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}.reveal.visible{opacity:1;transform:translateY(0)}
+    @media (max-width:992px){.nav-top,.nav-main,section,footer{padding-left:24px;padding-right:24px}.nav-links{display:none}.hamburger{display:flex}.mobile-menu{display:block}.hero-content,.story-grid,.contact-wrap{grid-template-columns:1fr}.values-grid,.why-grid,.stats-grid,.footer-grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:640px){
+        .nav-top { padding: 6px 20px; font-size: 10px; }
+      .hero{margin-top:84px;min-height:auto}.hero-content{padding:48px 24px}.hero-card-wrap,.values-grid,.why-grid,.stats-grid,.footer-grid{grid-template-columns:1fr}.glass-card.large{grid-column:span 1}}
+    
+  </style>
+</head>
+<body>
+<!-- ===== NAVBAR ===== -->
+<nav id="navbar">
+  <div class="nav-top">
+    <div style="display:flex;gap:20px;align-items:center;">
+      <a href="https://wa.me/966598325976" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        966 59 832 5976+
+      </a>
+      <a href="#">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        الرياض، حي المنصور
+      </a>
+    </div>
+    <div style="font-size:12px;opacity:0.8;">تجهيزات مطاعم احترافية منذ 2019</div>
+  </div>
+
+  <div class="nav-main">
+    <a href="#" class="logo">
+      <svg class="logo-icon" viewBox="0 0 60 60" fill="none">
+        <circle cx="30" cy="30" r="28" stroke="#cc1f1f" stroke-width="2.5"/>
+        <g fill="#cc1f1f">
+          <rect x="26" y="4" width="8" height="10" rx="2"/>
+          <rect x="26" y="46" width="8" height="10" rx="2"/>
+          <rect x="4" y="26" width="10" height="8" rx="2"/>
+          <rect x="46" y="26" width="10" height="8" rx="2"/>
+          <rect x="9.5" y="9.5" width="8" height="10" rx="2" transform="rotate(45 13.5 14.5)"/>
+          <rect x="40.5" y="9.5" width="8" height="10" rx="2" transform="rotate(45 44.5 14.5)"/>
+          <rect x="9.5" y="40.5" width="8" height="10" rx="2" transform="rotate(45 13.5 45.5)"/>
+          <rect x="40.5" y="40.5" width="8" height="10" rx="2" transform="rotate(45 44.5 45.5)"/>
+        </g>
+        <circle cx="30" cy="30" r="10" fill="#cc1f1f"/>
+        <text x="30" y="34" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="Cairo">ر</text>
+      </svg>
+      <div class="logo-text">
+        <h1>مشعل سفر عبدالرحمن</h1>
+        <span>معدات المطاعم والفنادق</span>
+      </div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="../index.html" >الرئيسية</a></li>
+      <li><a href="#">المعدات والمنتجات</a></li>
+      <li><a href="#">الكاتلوج</a></li>
+      <li><a href="#" class="active">من نحن</a></li>
+      <li><a href="https://wa.me/966598325976" class="nav-cta">تواصل بنا</a></li>
+    </ul>
+
+    <div class="hamburger" id="hamburger" onclick="openMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Overlay -->
+<div class="mobile-overlay" id="mobileOverlay" onclick="closeMenu()"></div>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="closeMenu()">✕</button>
+  <div class="mobile-logo">
+    <h2>مشعل سفر عبدالرحمن</h2>
+    <p style="font-size:12px;color:#888;">معدات المطاعم والفنادق</p>
+  </div>
+  <ul class="mobile-nav-links">
+    <li><a href="../index.html">الرئيسية</a></li>
+    <li><a href="#">المعدات والمنتجات</a></li>
+    <li><a href="#">الكاتلوج</a></li>
+    <li><a href="#">من نحن</a></li>
+    <li><a href="https://wa.me/966598325976" style="color:var(--red);font-weight:800;">تواصل بنا</a></li>
+  </ul>
+  <div style="margin-top:32px;padding-top:24px;border-top:1px solid #eee;">
+    <a href="https://wa.me/966598325976" target="_blank" style="display:flex;align-items:center;gap:10px;font-size:14px;color:#25D366;font-weight:700;text-decoration:none;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      966 59 832 5976+
+    </a>
+  </div>
+</div>
+
+
+<div class="mobile-overlay" id="mobileOverlay" onclick="closeMenu()"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="closeMenu()">×</button>
+  <div style="margin-top:20px;margin-bottom:30px"><h2 style="font-size:20px;font-weight:900;color:var(--red)">شركة حمدان</h2><p style="font-size:12px;color:#888">لتجهيزات المطاعم والمطابخ</p></div>
+  <ul class="mobile-nav-links">
+    <li><a href="../index.html">الرئيسية</a></li>
+    <li><a href="#story" onclick="closeMenu()">من نحن</a></li>
+    <li><a href="#values" onclick="closeMenu()">عن الشركة</a></li>
+    <li><a href="#contact" onclick="closeMenu()">التواصل</a></li>
+    <li><a href="https://wa.me/966598325976" target="_blank" style="color:var(--red);font-weight:800">تواصل بنا</a></li>
+  </ul>
+</div>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="reveal">
+      <div class="hero-badge"><span></span>خبرة في تجهيز المطاعم ورضا العملاء</div>
+      <h1 class="hero-title">نحن <span class="accent">شركة حمدان</span><br>نوفر لكم تجهيزات مطاعم<br>بأسعار مرضية ومنتجات رائعة</h1>
+      <p class="hero-subtitle">نعمل على توفير بضائع وتجهيزات للمطاعم والمطابخ التجارية بجودة موثوقة وخدمة واضحة وسريعة. نهتم بأن تكون تجربة العميل سهلة، وأن يحصل على المنتج المناسب بسعر مرضٍ وتعامل محترم من أول تواصل حتى ما بعد البيع.</p>
+      <div class="hero-actions">
+        <a href="https://wa.me/966598325976" class="btn-primary" target="_blank">تواصل واتساب</a>
+        <a href="#story" class="btn-outline">اعرف أكثر عنا</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="num">5+</div><div class="lbl">سنوات خبرة</div></div>
+        <div class="hero-stat"><div class="num">100+</div><div class="lbl">منتج متاح</div></div>
+        <div class="hero-stat"><div class="num">500+</div><div class="lbl">عميل راضٍ</div></div>
+      </div>
+    </div>
+    <div class="hero-card-wrap reveal">
+      <div class="glass-card large"><div><h3>شريك يعتمد عليه</h3><p>نخدم أصحاب المطاعم والمشاريع الجديدة بخيارات مناسبة وتجهيزات تساعدهم على بدء العمل بثقة.</p></div></div>
+      <div class="glass-card"><h3>سعر مرضٍ</h3><p>نوازن بين الجودة والتكلفة حتى يحصل العميل على أفضل قيمة ممكنة.</p></div>
+      <div class="glass-card"><h3>متابعة مستمرة</h3><p>نسعى لإرضاء الزبون ونحرص أن يبقى التواصل سهلاً وواضحاً وسريعاً.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="story-section" id="story">
+  <div class="section-header reveal">
+    <div class="section-label">من نحن</div>
+    <h2 class="section-title">شركة <span class="red">حمدان</span> بخدمة تليق بثقتكم</h2>
+    <p class="section-desc">نقدم حلول تجهيز المطاعم والمطابخ التجارية بأسلوب عملي واهتمام حقيقي بالتفاصيل، لأننا نعرف أن نجاح المشروع يبدأ من اختيار المعدات المناسبة.</p>
+  </div>
+  <div class="story-grid">
+    <div class="story-card reveal">
+      <h3>تعريف بالشركة</h3>
+      <p>نحن شركة حمدان، نعمل على توفير بضائع وتجهيزات المطاعم بجودة عالية وأسعار مرضية تناسب أصحاب المشاريع الجديدة والقائمة. نؤمن أن العميل لا يبحث فقط عن منتج، بل عن جهة صادقة تساعده على اختيار الأنسب لاحتياجه.</p>
+      <p>لذلك نهتم بالتفاصيل الصغيرة قبل الكبيرة، من جودة المنتجات إلى سرعة الرد، ومن وضوح المعلومات إلى سهولة التواصل عبر واتساب فقط. ونسعى دائماً إلى إرضاء الزبون وبناء ثقة طويلة المدى.</p>
+      <ul class="story-list">
+        <li>نوفر منتجات رائعة مختارة لتناسب احتياجات المطاعم والمطابخ التجارية.</li>
+        <li>نحرص على تقديم أسعار معقولة وواضحة بدون تعقيد في التواصل.</li>
+        <li>رضا العميل أولوية أساسية في كل خطوة من خطوات الخدمة.</li>
+      </ul>
+    </div>
+    <div class="promise-card reveal">
+      <h3>وعدنا لكم</h3>
+      <p>نسعى دائماً لأن تكون تجربتكم معنا مريحة من أول رسالة حتى استلام المنتج، مع اهتمام حقيقي بالجودة والدقة وحسن التعامل.</p>
+      <div class="promise-points">
+        <div>نساعد العميل في اختيار المنتج الأنسب حسب الاستخدام والمساحة والميزانية.</div>
+        <div>نهتم بتقديم بضائع عملية ومظهر احترافي وجودة تمنحكم راحة في التشغيل.</div>
+        <div>نعمل بروح خدمة عالية لأن رضا الزبون بالنسبة لنا ليس إضافة بل أساس العمل.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="values">
+  <div class="section-header reveal">
+    <div class="section-label">قيمنا</div>
+    <h2 class="section-title">أشياء نحرص عليها في <span class="red">كل طلب</span></h2>
+    <p class="section-desc">هذه المبادئ تشكل أسلوبنا في الخدمة وتوضح لماذا يختارنا العملاء عندما يبحثون عن تعامل مريح ومنتج ممتاز وسعر مناسب.</p>
+  </div>
+  <div class="values-grid">
+    <div class="value-card reveal"><div class="value-icon">01</div><h3>الاهتمام بالعميل</h3><p>نستمع جيداً لما يحتاجه العميل ونقدم له الخيار المناسب بدون تعقيد، لأننا نؤمن أن رضا الزبون هو أساس نجاحنا.</p></div>
+    <div class="value-card reveal"><div class="value-icon">02</div><h3>الجودة والسعر</h3><p>نختار منتجات رائعة وعملية مع الحرص على أن تكون الأسعار مرضية ومناسبة قدر الإمكان، حتى يحصل العميل على قيمة حقيقية.</p></div>
+    <div class="value-card reveal"><div class="value-icon">03</div><h3>الوضوح والسرعة</h3><p>نهتم بسرعة التواصل عبر واتساب، وبتقديم معلومات واضحة ومباشرة حتى تكون تجربة العميل سهلة من البداية للنهاية.</p></div>
+  </div>
+</section>
+
+<section class="stats-section">
+  <div class="section-header reveal">
+    <div class="section-label">أرقامنا</div>
+    <h2 class="section-title">نتطور بثقة ونخدم <span class="red">عدداً أكبر</span> من العملاء</h2>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card reveal"><div class="stat-num">5+</div><div class="stat-label">سنوات خبرة</div></div>
+    <div class="stat-card reveal"><div class="stat-num">100+</div><div class="stat-label">منتج وتجهيز</div></div>
+    <div class="stat-card reveal"><div class="stat-num">500+</div><div class="stat-label">عميل راضٍ</div></div>
+    <!-- <div class="stat-card reveal"><div class="stat-num">24+</div><div class="stat-label">ساعة متابعة</div></div> -->
+  </div>
+</section>
+
+<section class="why-section">
+  <div class="section-header reveal">
+    <div class="section-label">لماذا نحن</div>
+    <h2 class="section-title">لماذا يختار العملاء <span class="red">شركة حمدان</span></h2>
+  </div>
+  <div class="why-grid">
+    <div class="why-card reveal"><div class="why-icon">✓</div><h3>منتجات موثوقة</h3><p>نركز على المنتجات العملية التي تخدم العمل اليومي للمطاعم وتمنح العميل ثقة وراحة في الاستخدام.</p></div>
+    <div class="why-card reveal"><div class="why-icon">٪</div><h3>أسعار مناسبة</h3><p>نقدم أسعاراً مرضية مع حرص دائم على توازن ممتاز بين جودة المنتج وقيمته الفعلية.</p></div>
+    <div class="why-card reveal"><div class="why-icon">★</div><h3>حرص على الرضا</h3><p>نسعى لإرضاء الزبون في كل مرحلة ونتعامل باهتمام واحترام وسرعة في الرد عبر واتساب.</p></div>
+  </div>
+</section>
+
+<section class="contact-section" id="contact">
+  <div class="contact-wrap">
+    <div class="contact-content reveal">
+      <h2>جاهزون لخدمتكم</h2>
+      <p>إذا كنتم تبحثون عن شركة تساعدكم في تجهيز مطعمكم أو اختيار المنتجات المناسبة بسعر مرضٍ، فتواصلوا معنا الآن عبر واتساب، وسنخدمكم بنفس أسلوب التواصل الموجود في الصفحة الرئيسية.</p>
+      <a href="https://wa.me/966598325976" class="btn-whatsapp" target="_blank">تواصل واتساب الآن</a>
+    </div>
+    <div class="contact-box reveal">
+      <h3>معلومات التواصل</h3>
+      <ul>
+        <li><span>•</span><span>واتساب فقط: <a href="https://wa.me/966598325976" target="_blank" style="color:#fff;text-decoration:none" dir="ltr">+966 59 832 5976</a></span></li>
+        <li><span>•</span><span>الموقع: الرياض، حي المنصور</span></li>
+        <li><span>•</span><span>خدمتنا تركز على سرعة الرد وتقديم المعلومات الواضحة ومساعدة العميل حتى يختار المناسب.</span></li>
+      </ul>
+      <span class="badge">نسعد بخدمتكم عبر واتساب</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo-text"><h1 style="font-size:20px;font-weight:900;color:#fff;font-family:'Tajawal',sans-serif;">مشعل سفر عبدالرحمن</h1><span style="font-size:12px;color:rgba(255,255,255,.5);">لتجهيزات المطاعم والمطابخ</span></div>
+      <p>نوفر تجهيزات المطاعم والمطابخ التجارية بأسعار مرضية ومنتجات رائعة، مع اهتمام حقيقي بسرعة التواصل وجودة الخدمة والحرص المستمر على رضا الزبون.</p>
+      <div class="footer-social"><a href="https://wa.me/966598325976" class="social-btn" target="_blank" title="واتساب">و</a></div>
+    </div>
+    <div class="footer-col">
+      <h4>روابط سريعة</h4>
+      <ul class="footer-links">
+        <li><a href="../index.html">الرئيسية</a></li>
+        <li><a href="#">المعدات والمنتجات</a></li>
+        <li><a href="#">الكاتلوج</a></li>
+        <li><a href="#">من نحن</a></li>
+        <li><a href="#">تواصل بنا</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>تواصل معنا</h4>
+      <ul class="footer-contact">
+        <li><span class="icon">•</span><span>الرياض، حي المنصور، المملكة العربية السعودية</span></li>
+        <li><span class="icon">•</span><a href="https://wa.me/966598325976" target="_blank" style="color:rgba(255,255,255,.7);text-decoration:none" dir="ltr">+966 59 832 5976 (WhatsApp)</a></li>
+        <li><span class="icon">•</span><span>رد سريع ومباشر عبر واتساب</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 مشعل سفر عبدالرحمن جميع الحقوق محفوظة.</p></div>
+</footer>
+<script src="index.js"></script>
+</body>
+</html>

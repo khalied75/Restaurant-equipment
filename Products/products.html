@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>المنتجات - مشعل سفر عبدالرحمن</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --red:#cc1f1f; --red-dark:#a01515; --red-light:#e63030; --gray-bg:#f5f5f5; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Cairo',sans-serif; background:#fff; color:#222; overflow-x:hidden; }
+
+    /* NAV */
+    nav { position:fixed; top:0; left:0; right:0; z-index:1000; background:#fff; box-shadow:0 2px 20px rgba(0,0,0,0.1); }
+    .nav-top { background:var(--red); padding:6px 40px; display:flex; justify-content:space-between; align-items:center; font-size:13px; color:#fff; }
+    .nav-top a { color:#fff; text-decoration:none; display:flex; align-items:center; gap:6px; }
+    .nav-main { display:flex; align-items:center; justify-content:space-between; padding:12px 40px; }
+    .logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+    .logo-text h1 { font-size:20px; font-weight:900; color:var(--red); font-family:'Tajawal',sans-serif; line-height:1.1; }
+    .logo-text span { font-size:11px; color:#666; display:block; }
+    .nav-links { display:flex; align-items:center; gap:6px; list-style:none; }
+    .nav-links a { text-decoration:none; color:#333; font-size:14px; font-weight:600; padding:8px 16px; border-radius:6px; transition:all 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color:var(--red); background:rgba(204,31,31,0.06); }
+    .nav-cta { background:var(--red) !important; color:#fff !important; border-radius:8px !important; }
+    .nav-cta:hover { background:var(--red-dark) !important; }
+    .hamburger { display:none; cursor:pointer; flex-direction:column; gap:5px; padding:8px; }
+    .hamburger span { display:block; width:25px; height:2px; background:var(--red); border-radius:2px; }
+    .mobile-menu { display:none; position:fixed; top:0; right:-100%; width:75%; max-width:320px; height:100vh; background:#fff; z-index:2000; padding:30px 24px; box-shadow:-8px 0 40px rgba(0,0,0,0.15); transition:right 0.35s cubic-bezier(0.4,0,0.2,1); }
+    .mobile-menu.open { right:0; }
+    .mobile-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:1999; }
+    .mobile-overlay.open { display:block; }
+    .mobile-close { position:absolute; top:16px; left:16px; background:none; border:1px solid #ddd; width:36px; height:36px; border-radius:6px; cursor:pointer; font-size:18px; color:#666; display:flex; align-items:center; justify-content:center; }
+    .mobile-nav-links { list-style:none; margin-top:50px; }
+    .mobile-nav-links li { border-bottom:1px solid #f0f0f0; }
+    .mobile-nav-links a { display:block; padding:14px 8px; font-size:16px; font-weight:600; color:#333; text-decoration:none; }
+    .mobile-nav-links a:hover { color:var(--red); }
+    @media(max-width:900px){ .nav-links{display:none;} .hamburger{display:flex;} .mobile-menu{display:block;} .nav-top{padding:6px 20px;} .nav-main{padding:12px 20px;} }
+
+    /* PAGE HEADER */
+    .page-header { margin-top:110px; background:linear-gradient(135deg,#1a1a1a 0%,#8b1a1a 100%); padding:50px 40px; text-align:center; position:relative; overflow:hidden; }
+    .page-header::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% 50%,rgba(204,31,31,0.2) 0%,transparent 60%); }
+    .page-header h1 { font-size:clamp(24px,3.5vw,42px); font-weight:900; color:#fff; font-family:'Tajawal',sans-serif; position:relative; z-index:1; }
+    .page-header p { font-size:15px; color:rgba(255,255,255,0.7); margin-top:10px; position:relative; z-index:1; }
+    .breadcrumb { display:flex; gap:8px; justify-content:center; align-items:center; margin-top:14px; font-size:13px; color:rgba(255,255,255,0.6); position:relative; z-index:1; }
+    .breadcrumb a { color:rgba(255,255,255,0.7); text-decoration:none; }
+    .breadcrumb a:hover { color:#fff; }
+
+    /* LAYOUT */
+    .page-body { max-width:1300px; margin:0 auto; padding:40px; display:grid; grid-template-columns:260px 1fr; gap:32px; align-items:start; }
+    @media(max-width:900px){ .page-body{grid-template-columns:1fr; padding:20px;} .sidebar{display:none;} }
+
+    /* SIDEBAR */
+    .sidebar { background:#fff; border-radius:16px; box-shadow:0 2px 20px rgba(0,0,0,0.07); padding:24px; position:sticky; top:130px; }
+    .sidebar h3 { font-size:15px; font-weight:800; color:#1a1a1a; margin-bottom:16px; padding-bottom:12px; border-bottom:2px solid #f0f0f0; }
+
+    /* SEARCH */
+    .search-box { position:relative; margin-bottom:24px; }
+    .search-box input { width:100%; border:2px solid #e8e8e8; border-radius:10px; padding:10px 16px 10px 40px; font-size:14px; font-family:'Cairo',sans-serif; outline:none; transition:border-color 0.2s; }
+    .search-box input:focus { border-color:var(--red); }
+    .search-box svg { position:absolute; left:12px; top:50%; transform:translateY(-50%); color:#aaa; }
+
+    /* CATEGORY LIST */
+    .cat-list { list-style:none; }
+    .cat-list li { margin-bottom:4px; }
+    .cat-list button { width:100%; text-align:right; background:none; border:none; padding:10px 12px; border-radius:8px; font-size:13px; font-weight:600; color:#555; cursor:pointer; font-family:'Cairo',sans-serif; display:flex; justify-content:space-between; align-items:center; transition:all 0.2s; }
+    .cat-list button:hover { background:rgba(204,31,31,0.06); color:var(--red); }
+    .cat-list button.active { background:var(--red); color:#fff; }
+    .cat-count { background:rgba(0,0,0,0.08); border-radius:50px; padding:1px 8px; font-size:11px; }
+    .cat-list button.active .cat-count { background:rgba(255,255,255,0.25); }
+
+    /* MAIN AREA */
+    .main-area {}
+    .toolbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px; }
+    .toolbar-left { font-size:14px; color:#666; }
+    .toolbar-left strong { color:#1a1a1a; }
+    .sort-select { border:2px solid #e8e8e8; border-radius:8px; padding:8px 14px; font-size:13px; font-family:'Cairo',sans-serif; color:#444; outline:none; cursor:pointer; }
+
+    /* MOBILE FILTER BAR */
+    .mobile-filter-bar { display:none; gap:10px; flex-wrap:wrap; margin-bottom:20px; }
+    .mob-cat-btn { background:#fff; border:2px solid #e0e0e0; color:#555; padding:8px 16px; border-radius:50px; font-size:12px; font-weight:700; cursor:pointer; font-family:'Cairo',sans-serif; transition:all 0.2s; white-space:nowrap; }
+    .mob-cat-btn.active { background:var(--red); border-color:var(--red); color:#fff; }
+    @media(max-width:900px){ .mobile-filter-bar{display:flex;} }
+
+    /* PRODUCTS GRID */
+    .prod-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    @media(max-width:1100px){ .prod-grid{grid-template-columns:repeat(2,1fr);} }
+    @media(max-width:600px){ .prod-grid{grid-template-columns:1fr;} }
+
+    .prod-card { background:#fff; border-radius:14px; overflow:hidden; box-shadow:0 2px 16px rgba(0,0,0,0.06); transition:all 0.3s; cursor:pointer; border:2px solid transparent; text-decoration:none; display:block; color:inherit; }
+    .prod-card:hover { transform:translateY(-5px); box-shadow:0 14px 36px rgba(0,0,0,0.12); border-color:rgba(204,31,31,0.15); }
+    .prod-img-wrap { height:200px; background:#f5f5f5; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+    .prod-img-wrap img { max-width:85%; max-height:85%; object-fit:contain; transition:transform 0.4s; }
+    .prod-card:hover .prod-img-wrap img { transform:scale(1.07); }
+    .prod-badge { position:absolute; top:10px; right:10px; background:var(--red); color:#fff; font-size:10px; font-weight:700; padding:3px 10px; border-radius:50px; }
+    .prod-badge.new { background:#059669; }
+    .prod-info { padding:16px; }
+    .prod-model { font-size:10px; color:#aaa; font-weight:600; margin-bottom:3px; }
+    .prod-name { font-size:14px; font-weight:800; color:#1a1a1a; margin-bottom:6px; line-height:1.4; }
+    .prod-desc { font-size:12px; color:#888; line-height:1.6; margin-bottom:12px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+    .prod-footer { display:flex; justify-content:space-between; align-items:center; }
+    .prod-cat-tag { font-size:10px; background:#f0f0f0; color:#666; padding:3px 10px; border-radius:50px; font-weight:600; }
+    .prod-link { font-size:12px; font-weight:700; color:var(--red); display:flex; align-items:center; gap:4px; }
+
+    /* EMPTY STATE */
+    .empty { text-align:center; padding:80px 20px; color:#aaa; }
+    .empty svg { opacity:0.3; margin-bottom:16px; }
+    .empty h3 { font-size:18px; font-weight:700; color:#999; margin-bottom:8px; }
+
+    /* FOOTER */
+    footer { background:#111; color:#fff; padding:40px; margin-top:80px; }
+    .footer-bottom { text-align:center; font-size:12px; color:rgba(255,255,255,0.35); padding-top:24px; border-top:1px solid rgba(255,255,255,0.08); }
+    .footer-mini { max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; padding-bottom:24px; }
+    .footer-mini a { color:rgba(255,255,255,0.6); text-decoration:none; font-size:13px; }
+    .footer-mini a:hover { color:#fff; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-top">
+    <div style="display:flex;gap:20px;align-items:center;">
+      <a href="https://wa.me/966598325976" target="_blank">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        966 59 832 5976+
+      </a>
+      <span>📍 الرياض، حي المنصور</span>
+    </div>
+    <span style="font-size:12px;opacity:0.8;">تجهيزات مطاعم احترافية منذ 2019</span>
+  </div>
+  <div class="nav-main">
+    <a href="index.html" class="logo">
+      <svg width="50" height="50" viewBox="0 0 60 60" fill="none">
+        <circle cx="30" cy="30" r="28" stroke="#cc1f1f" stroke-width="2.5"/>
+        <g fill="#cc1f1f">
+          <rect x="26" y="4" width="8" height="10" rx="2"/><rect x="26" y="46" width="8" height="10" rx="2"/>
+          <rect x="4" y="26" width="10" height="8" rx="2"/><rect x="46" y="26" width="10" height="8" rx="2"/>
+          <rect x="9.5" y="9.5" width="8" height="10" rx="2" transform="rotate(45 13.5 14.5)"/>
+          <rect x="40.5" y="9.5" width="8" height="10" rx="2" transform="rotate(45 44.5 14.5)"/>
+          <rect x="9.5" y="40.5" width="8" height="10" rx="2" transform="rotate(45 13.5 45.5)"/>
+          <rect x="40.5" y="40.5" width="8" height="10" rx="2" transform="rotate(45 44.5 45.5)"/>
+        </g>
+        <circle cx="30" cy="30" r="10" fill="#cc1f1f"/>
+        <text x="30" y="34" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="Cairo">م</text>
+      </svg>
+      <div class="logo-text">
+        <h1>مشعل سفر عبدالرحمن</h1>
+        <span>معدات المطاعم والفنادق</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">الرئيسية</a></li>
+      <li><a href="products.html" class="active">المعدات والمنتجات</a></li>
+      <li><a href="#">الكاتلوج</a></li>
+      <li><a href="#">من نحن</a></li>
+      <li><a href="https://wa.me/966598325976" class="nav-cta">تواصل بنا</a></li>
+    </ul>
+    <div class="hamburger" onclick="openMenu()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="mobile-overlay" id="mobileOverlay" onclick="closeMenu()"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="closeMenu()">✕</button>
+  <div style="margin-top:50px;margin-bottom:20px;">
+    <h2 style="font-size:18px;font-weight:900;color:var(--red);">مشعل سفر عبدالرحمن</h2>
+  </div>
+  <ul class="mobile-nav-links">
+    <li><a href="index.html">الرئيسية</a></li>
+    <li><a href="products.html" style="color:var(--red);">المعدات والمنتجات</a></li>
+    <li><a href="#">الكاتلوج</a></li>
+    <li><a href="#">من نحن</a></li>
+    <li><a href="https://wa.me/966598325976" style="color:var(--red);font-weight:800;">تواصل بنا</a></li>
+  </ul>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <h1>المعدات والمنتجات</h1>
+  <p>أحدث الحلول في تصنيع وتجهيز معدات المطاعم والفنادق</p>
+  <div class="breadcrumb">
+    <a href="index.html">الرئيسية</a>
+    <span>›</span>
+    <span>المنتجات</span>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="page-body">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h3>🔍 البحث</h3>
+    <div class="search-box" style="margin-bottom:28px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="searchInput" placeholder="ابحث عن المنتج..." oninput="filterProducts()"/>
+    </div>
+
+    <h3>📂 الأقسام</h3>
+    <ul class="cat-list" id="catList">
+      <li><button class="active" onclick="setCategory('all',this)">الكل <span class="cat-count" id="countAll">0</span></button></li>
+      <li><button onclick="setCategory('أفران بيتزا',this)">🍕 أفران بيتزا <span class="cat-count" id="countOven">0</span></button></li>
+      <li><button onclick="setCategory('سخانات بطاطا',this)">🍟 سخانات بطاطا <span class="cat-count" id="countWarmer">0</span></button></li>
+      <li><button onclick="setCategory('قلايات',this)">🔥 قلايات <span class="cat-count" id="countFryer">0</span></button></li>
+      <li><button onclick="setCategory('عجانات',this)">🫕 عجانات <span class="cat-count" id="countDough">0</span></button></li>
+      <li><button onclick="setCategory('جريل',this)">🥪 جريل وساندويش <span class="cat-count" id="countGrill">0</span></button></li>
+    </ul>
+
+    <div style="margin-top:28px;padding-top:20px;border-top:1px solid #f0f0f0;">
+      <div style="background:var(--red);border-radius:12px;padding:20px;text-align:center;color:#fff;">
+        <div style="font-size:28px;margin-bottom:8px;">💬</div>
+        <p style="font-size:13px;font-weight:700;margin-bottom:12px;">تريد استشارة مجانية؟</p>
+        <a href="https://wa.me/966598325976" target="_blank" style="background:#fff;color:var(--red);font-size:12px;font-weight:800;padding:8px 16px;border-radius:7px;text-decoration:none;display:inline-block;">واتساب الآن</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-area">
+    <!-- Mobile filter -->
+    <div class="mobile-filter-bar" id="mobileFilterBar">
+      <button class="mob-cat-btn active" onclick="setCategory('all',this)">الكل</button>
+      <button class="mob-cat-btn" onclick="setCategory('أفران بيتزا',this)">🍕 أفران بيتزا</button>
+      <button class="mob-cat-btn" onclick="setCategory('سخانات بطاطا',this)">🍟 سخانات بطاطا</button>
+      <button class="mob-cat-btn" onclick="setCategory('قلايات',this)">🔥 قلايات</button>
+      <button class="mob-cat-btn" onclick="setCategory('عجانات',this)">🫕 عجانات</button>
+      <button class="mob-cat-btn" onclick="setCategory('جريل',this)">🥪 جريل</button>
+    </div>
+
+    <!-- Mobile search -->
+    <div class="search-box" style="margin-bottom:16px;display:none;" id="mobileSearch">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" placeholder="ابحث..." oninput="document.getElementById('searchInput').value=this.value;filterProducts()"/>
+    </div>
+
+    <div class="toolbar">
+      <div class="toolbar-left">عرض <strong id="countShowing">0</strong> منتج</div>
+    </div>
+
+    <div class="prod-grid" id="prodGrid"></div>
+    <div class="empty" id="emptyState" style="display:none;">
+      <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <h3>لا توجد نتائج</h3>
+      <p>جرب البحث بكلمة أخرى أو اختر قسم مختلف</p>
+    </div>
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-mini">
+    <div>
+      <h2 style="font-size:18px;font-weight:900;color:#fff;font-family:'Tajawal',sans-serif;">مشعل سفر عبدالرحمن</h2>
+      <p style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:4px;">الرياض، حي المنصور</p>
+    </div>
+    <div style="display:flex;gap:24px;flex-wrap:wrap;">
+      <a href="index.html">الرئيسية</a>
+      <a href="products.html">المنتجات</a>
+      <a href="#">من نحن</a>
+      <a href="https://wa.me/966598325976" target="_blank">تواصل بنا</a>
+    </div>
+    <a href="https://wa.me/966598325976" target="_blank" style="background:#25D366;color:#fff;font-weight:700;font-size:13px;padding:10px 20px;border-radius:8px;text-decoration:none;">واتساب الآن</a>
+  </div>
+  <div class="footer-bottom">© 2024 مشعل سفر عبدالرحمن. جميع الحقوق محفوظة.</div>
+</footer>
+
+<script>
+// ============================================================
+// 🗂️ قاعدة بيانات المنتجات — أضف منتجاتك هنا بسهولة
+// ============================================================
+const PRODUCTS = [
+  // ===== أفران بيتزا =====
+  {
+    id: 'tep-202a',
+    name: 'فرن بيتزا حجري دورين كهرباء',
+    model: 'TEP-202A',
+    category: 'أفران بيتزا',
+    image: 'Electric-oven-with-stone-Double-deck.webp',
+    badge: 'الأكثر طلباً',
+    badgeType: '',
+    shortDesc: '2 طابق • 1 صينية 40×60 • حجر بيتزا كهربائي',
+    specs: [
+      { label: 'الطوابق', value: '2 دور' },
+      { label: 'حجم الصينية', value: '40×60 سم' },
+      { label: 'نوع الرف', value: 'حجر بيتزا' },
+      { label: 'الصناعة', value: 'الصين' },
+    ],
+    pros: ['موزع حرارة ممتاز', 'بناء متين من الستيل', 'سهل التنظيف', 'مناسب للمطاعم الصغيرة والمتوسطة'],
+    cons: ['يحتاج وقتاً للتسخين الأولي', 'حجم محدود بصينية واحدة لكل طابق'],
+    whatsappMsg: 'استفسار عن: فرن بيتزا TEP-202A',
+  },
+  {
+    id: 'pl-36',
+    name: 'فرن بيتزا 2 دور 2 صينية',
+    model: 'PL-36',
+    category: 'أفران بيتزا',
+    image: 'HTD-40ercengsipandian.webp',
+    badge: '',
+    badgeType: '',
+    shortDesc: '122×82×124 سم • 380V • 13.2KW • رف صاج أو حجري',
+    specs: [
+      { label: 'الأبعاد', value: '122×82×124 سم' },
+      { label: 'الجهد', value: '380V' },
+      { label: 'الطاقة', value: '13.2 KW • 32A' },
+      { label: 'درجة الحرارة', value: '20 – 400 °م' },
+      { label: 'الوزن', value: '145 كيلو' },
+      { label: 'الصواني', value: '3 طبقتان – 6 صواني' },
+    ],
+    pros: ['طاقة عالية مناسبة للمطاعم الكبيرة', 'رف صاج أو حجري حسب الطلب', 'درجة حرارة عالية حتى 400°م', 'موزع حرارة احترافي'],
+    cons: ['يتطلب 3 فاز كهرباء', 'ثقيل الوزن (145 كيلو)', 'يحتاج مساحة أكبر'],
+    whatsappMsg: 'استفسار عن: فرن بيتزا PL-36',
+  },
+  {
+    id: 'pl-12',
+    name: 'فرن بيتزا حجري دور واحد',
+    model: 'PL-12',
+    category: 'أفران بيتزا',
+    image: 'images.jpg',
+    badge: 'اقتصادي',
+    badgeType: 'new',
+    shortDesc: '122×82×55 سم • 380V • 7KW • 2 صينية 40×60',
+    specs: [
+      { label: 'الأبعاد', value: '122×82×55 سم' },
+      { label: 'الجهد', value: '380V' },
+      { label: 'الطاقة', value: '7 KW • 32A' },
+      { label: 'درجة الحرارة', value: '20 – 400 °م' },
+      { label: 'الصواني', value: 'دور 1 – 2 صواني' },
+    ],
+    pros: ['سعر اقتصادي', 'خيار الحجر أو الصاج', 'مناسب للمطاعم الصغيرة', 'سهل التشغيل'],
+    cons: ['طابق واحد فقط', 'سعة أقل من الموديلات الكبيرة'],
+    whatsappMsg: 'استفسار عن: فرن بيتزا PL-12',
+  },
+
+  // ===== سخانات بطاطا =====
+  {
+    id: 'tcw-370',
+    name: 'سخان بطاطا طاولة',
+    model: 'TCW-370',
+    category: 'سخانات بطاطا',
+    image: '1774269935392_image.png',
+    badge: '',
+    badgeType: '',
+    shortDesc: '560×610×340 مم • 220V • 1KW',
+    specs: [
+      { label: 'الأبعاد', value: '560×610×340 مم' },
+      { label: 'الجهد', value: '220V' },
+      { label: 'الطاقة', value: '1 KW' },
+      { label: 'التركيب', value: 'طاولة' },
+    ],
+    pros: ['صغير الحجم وعملي', 'سهل التركيب', 'يحافظ على حرارة البطاطا', 'مناسب للمحلات الصغيرة'],
+    cons: ['سعة محدودة', 'مخصص للبطاطا فقط'],
+    whatsappMsg: 'استفسار عن: سخان بطاطا TCW-370',
+  },
+  {
+    id: 'sy-1000',
+    name: 'سخان بطاطا مع خزانة 3 لمبة',
+    model: 'SY-1000',
+    category: 'سخانات بطاطا',
+    image: 'images__1_.jpg',
+    badge: 'جديد',
+    badgeType: 'new',
+    shortDesc: '1570×700×1000 مم • 220V • 1KW • مع خزانة',
+    specs: [
+      { label: 'الأبعاد', value: '1570×700×1000 مم' },
+      { label: 'الجهد', value: '220V' },
+      { label: 'الطاقة', value: '1 KW' },
+      { label: 'الإضاءة', value: '3 لمبات حرارية' },
+      { label: 'الإضافات', value: 'خزانة أسفل' },
+    ],
+    pros: ['مع خزانة تخزين أسفل', '3 لمبات لتوزيع الحرارة بشكل أفضل', 'مظهر احترافي', 'مناسب للمطاعم الكبيرة'],
+    cons: ['حجم كبير يحتاج مساحة', 'سعر أعلى من النموذج الصغير'],
+    whatsappMsg: 'استفسار عن: سخان بطاطا SY-1000',
+  },
+];
+// ============================================================
+// نهاية قاعدة البيانات
+// ============================================================
+
+let currentCat = 'all';
+
+function getCatCounts() {
+  const counts = { all: PRODUCTS.length };
+  PRODUCTS.forEach(p => {
+    counts[p.category] = (counts[p.category] || 0) + 1;
+  });
+  return counts;
+}
+
+function updateCounts() {
+  const c = getCatCounts();
+  const map = { all:'countAll', 'أفران بيتزا':'countOven', 'سخانات بطاطا':'countWarmer', 'قلايات':'countFryer', 'عجانات':'countDough', 'جريل':'countGrill' };
+  Object.entries(map).forEach(([k,id]) => {
+    const el = document.getElementById(id);
+    if(el) el.textContent = c[k] || 0;
+  });
+}
+
+function setCategory(cat, btn) {
+  currentCat = cat;
+  // update sidebar buttons
+  document.querySelectorAll('.cat-list button').forEach(b => b.classList.remove('active'));
+  // update mobile buttons
+  document.querySelectorAll('.mob-cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  filterProducts();
+}
+
+function filterProducts() {
+  const q = (document.getElementById('searchInput')?.value || '').trim().toLowerCase();
+  const filtered = PRODUCTS.filter(p => {
+    const matchCat = currentCat === 'all' || p.category === currentCat;
+    const matchQ = !q || p.name.toLowerCase().includes(q) || p.model.toLowerCase().includes(q) || p.category.toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+
+  const grid = document.getElementById('prodGrid');
+  const empty = document.getElementById('emptyState');
+  document.getElementById('countShowing').textContent = filtered.length;
+
+  if(filtered.length === 0) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  grid.innerHTML = filtered.map(p => `
+    <a href="product-detail.html?id=${p.id}" class="prod-card">
+      <div class="prod-img-wrap">
+        <img src="${p.image}" alt="${p.name}" onerror="this.style.opacity='0.3'"/>
+        ${p.badge ? `<div class="prod-badge ${p.badgeType}">${p.badge}</div>` : ''}
+      </div>
+      <div class="prod-info">
+        <div class="prod-model">${p.model} • ${p.category}</div>
+        <h3 class="prod-name">${p.name}</h3>
+        <p class="prod-desc">${p.shortDesc}</p>
+        <div class="prod-footer">
+          <span class="prod-cat-tag">${p.category}</span>
+          <span class="prod-link">عرض التفاصيل ←</span>
+        </div>
+      </div>
+    </a>
+  `).join('');
+}
+
+// Show mobile search
+document.addEventListener('DOMContentLoaded', () => {
+  if(window.innerWidth <= 900) {
+    document.getElementById('mobileSearch').style.display = 'block';
+  }
+  updateCounts();
+  filterProducts();
+});
+
+function openMenu() { document.getElementById('mobileMenu').classList.add('open'); document.getElementById('mobileOverlay').classList.add('open'); }
+function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('mobileOverlay').classList.remove('open'); }
+</script>
+</body>
+</html>

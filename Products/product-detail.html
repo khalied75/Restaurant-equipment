@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>تفاصيل المنتج - مشعل سفر عبدالرحمن</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --red:#cc1f1f; --red-dark:#a01515; --red-light:#e63030; --gray-bg:#f5f5f5; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Cairo',sans-serif; background:#f8f8f8; color:#222; overflow-x:hidden; }
+
+    /* NAV */
+    nav { position:fixed; top:0; left:0; right:0; z-index:1000; background:#fff; box-shadow:0 2px 20px rgba(0,0,0,0.1); }
+    .nav-top { background:var(--red); padding:6px 40px; display:flex; justify-content:space-between; align-items:center; font-size:13px; color:#fff; }
+    .nav-top a { color:#fff; text-decoration:none; display:flex; align-items:center; gap:6px; }
+    .nav-main { display:flex; align-items:center; justify-content:space-between; padding:12px 40px; }
+    .logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+    .logo-text h1 { font-size:20px; font-weight:900; color:var(--red); font-family:'Tajawal',sans-serif; line-height:1.1; }
+    .logo-text span { font-size:11px; color:#666; display:block; }
+    .nav-links { display:flex; align-items:center; gap:6px; list-style:none; }
+    .nav-links a { text-decoration:none; color:#333; font-size:14px; font-weight:600; padding:8px 16px; border-radius:6px; transition:all 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color:var(--red); background:rgba(204,31,31,0.06); }
+    .nav-cta { background:var(--red) !important; color:#fff !important; border-radius:8px !important; }
+    .hamburger { display:none; cursor:pointer; flex-direction:column; gap:5px; padding:8px; }
+    .hamburger span { display:block; width:25px; height:2px; background:var(--red); border-radius:2px; }
+    .mobile-menu { display:none; position:fixed; top:0; right:-100%; width:75%; max-width:320px; height:100vh; background:#fff; z-index:2000; padding:30px 24px; box-shadow:-8px 0 40px rgba(0,0,0,0.15); transition:right 0.35s; }
+    .mobile-menu.open { right:0; }
+    .mobile-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:1999; }
+    .mobile-overlay.open { display:block; }
+    .mobile-close { position:absolute; top:16px; left:16px; background:none; border:1px solid #ddd; width:36px; height:36px; border-radius:6px; cursor:pointer; font-size:18px; color:#666; display:flex; align-items:center; justify-content:center; }
+    .mobile-nav-links { list-style:none; margin-top:50px; }
+    .mobile-nav-links li { border-bottom:1px solid #f0f0f0; }
+    .mobile-nav-links a { display:block; padding:14px 8px; font-size:16px; font-weight:600; color:#333; text-decoration:none; }
+    @media(max-width:900px){ .nav-links{display:none;} .hamburger{display:flex;} .mobile-menu{display:block;} .nav-top{padding:6px 20px;} .nav-main{padding:12px 20px;} }
+
+    /* BREADCRUMB BAR */
+    .breadbar { margin-top:110px; background:#fff; border-bottom:1px solid #eee; padding:12px 40px; }
+    .breadcrumb { display:flex; gap:8px; align-items:center; font-size:13px; color:#999; max-width:1200px; margin:0 auto; }
+    .breadcrumb a { color:#666; text-decoration:none; }
+    .breadcrumb a:hover { color:var(--red); }
+    .breadcrumb span.current { color:var(--red); font-weight:600; }
+    @media(max-width:600px){ .breadbar{padding:12px 20px;} }
+
+    /* MAIN LAYOUT */
+    .detail-wrap { max-width:1200px; margin:32px auto; padding:0 40px; display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start; }
+    @media(max-width:900px){ .detail-wrap{grid-template-columns:1fr; padding:0 20px; gap:24px;} }
+
+    /* IMAGE PANEL */
+    .img-panel { background:#fff; border-radius:20px; box-shadow:0 4px 24px rgba(0,0,0,0.07); overflow:hidden; position:sticky; top:130px; }
+    .img-main { height:380px; display:flex; align-items:center; justify-content:center; padding:40px; background:#f8f8f8; position:relative; }
+    .img-main img { max-width:100%; max-height:100%; object-fit:contain; transition:transform 0.4s; }
+    .img-main:hover img { transform:scale(1.05); }
+    .img-badge { position:absolute; top:16px; right:16px; background:var(--red); color:#fff; font-size:11px; font-weight:800; padding:4px 14px; border-radius:50px; }
+    .img-badge.new { background:#059669; }
+
+    /* INFO PANEL */
+    .info-panel {}
+    .prod-cat-chip { display:inline-flex; align-items:center; gap:6px; background:rgba(204,31,31,0.08); color:var(--red); font-size:12px; font-weight:700; padding:5px 14px; border-radius:50px; margin-bottom:12px; }
+    .prod-title { font-size:clamp(22px,3vw,32px); font-weight:900; color:#1a1a1a; font-family:'Tajawal',sans-serif; line-height:1.3; margin-bottom:8px; }
+    .prod-model-line { font-size:13px; color:#aaa; font-weight:600; margin-bottom:16px; }
+    .prod-short { font-size:14px; color:#666; line-height:1.8; margin-bottom:24px; padding:16px; background:#f8f8f8; border-radius:10px; border-right:3px solid var(--red); }
+
+    /* SPECS TABLE */
+    .specs-title { font-size:15px; font-weight:800; color:#1a1a1a; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+    .specs-title::before { content:''; display:block; width:4px; height:18px; background:var(--red); border-radius:2px; }
+    .specs-table { width:100%; border-collapse:collapse; margin-bottom:28px; }
+    .specs-table tr { border-bottom:1px solid #f0f0f0; }
+    .specs-table td { padding:10px 12px; font-size:13px; }
+    .specs-table td:first-child { color:#888; font-weight:600; width:40%; }
+    .specs-table td:last-child { color:#1a1a1a; font-weight:700; }
+    .specs-table tr:last-child { border-bottom:none; }
+
+    /* PROS CONS */
+    .pros-cons { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:28px; }
+    @media(max-width:600px){ .pros-cons{grid-template-columns:1fr;} }
+    .pros-box, .cons-box { border-radius:12px; padding:16px; }
+    .pros-box { background:#f0fdf4; border:1px solid #bbf7d0; }
+    .cons-box { background:#fff5f5; border:1px solid #fecaca; }
+    .box-title { font-size:13px; font-weight:800; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
+    .pros-box .box-title { color:#15803d; }
+    .cons-box .box-title { color:#dc2626; }
+    .box-list { list-style:none; }
+    .box-list li { font-size:12px; line-height:1.6; padding:3px 0; display:flex; align-items:flex-start; gap:6px; }
+    .pros-box .box-list li { color:#166534; }
+    .cons-box .box-list li { color:#991b1b; }
+    .box-list li::before { flex-shrink:0; margin-top:3px; }
+    .pros-box .box-list li::before { content:'✓'; color:#16a34a; font-weight:800; }
+    .cons-box .box-list li::before { content:'✗'; color:#dc2626; font-weight:800; }
+
+    /* CTA BUTTONS */
+    .cta-btns { display:flex; gap:12px; flex-wrap:wrap; }
+    .btn-wa { background:#25D366; color:#fff; padding:14px 28px; border-radius:10px; font-size:15px; font-weight:800; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:all 0.25s; font-family:'Cairo',sans-serif; flex:1; justify-content:center; }
+    .btn-wa:hover { background:#1da851; transform:translateY(-2px); box-shadow:0 8px 20px rgba(37,211,102,0.4); }
+    .btn-back { background:#fff; color:#333; padding:14px 22px; border-radius:10px; font-size:14px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:6px; border:2px solid #e0e0e0; transition:all 0.25s; font-family:'Cairo',sans-serif; }
+    .btn-back:hover { border-color:var(--red); color:var(--red); }
+
+    /* RELATED */
+    .related-section { max-width:1200px; margin:48px auto 60px; padding:0 40px; }
+    @media(max-width:600px){ .related-section{padding:0 20px;} }
+    .related-title { font-size:20px; font-weight:900; color:#1a1a1a; font-family:'Tajawal',sans-serif; margin-bottom:24px; display:flex; align-items:center; gap:10px; }
+    .related-title::before { content:''; display:block; width:4px; height:24px; background:var(--red); border-radius:2px; }
+    .related-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+    @media(max-width:900px){ .related-grid{grid-template-columns:repeat(2,1fr);} }
+    @media(max-width:500px){ .related-grid{grid-template-columns:1fr 1fr;} }
+    .rel-card { background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,0.05); text-decoration:none; color:inherit; display:block; transition:all 0.3s; border:2px solid transparent; }
+    .rel-card:hover { transform:translateY(-4px); border-color:rgba(204,31,31,0.15); box-shadow:0 10px 28px rgba(0,0,0,0.1); }
+    .rel-img { height:130px; background:#f5f5f5; display:flex; align-items:center; justify-content:center; padding:16px; }
+    .rel-img img { max-width:100%; max-height:100%; object-fit:contain; }
+    .rel-info { padding:12px; }
+    .rel-info h4 { font-size:12px; font-weight:800; color:#1a1a1a; margin-bottom:4px; line-height:1.4; }
+    .rel-info span { font-size:10px; color:#aaa; }
+
+    /* NOT FOUND */
+    .not-found { text-align:center; padding:120px 40px; color:#aaa; }
+    .not-found h2 { font-size:24px; font-weight:900; color:#999; margin-bottom:12px; }
+
+    /* FOOTER */
+    footer { background:#111; color:#fff; padding:40px; }
+    .footer-bottom { text-align:center; font-size:12px; color:rgba(255,255,255,0.35); padding-top:24px; border-top:1px solid rgba(255,255,255,0.08); }
+    .footer-mini { max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; padding-bottom:24px; }
+    .footer-mini a { color:rgba(255,255,255,0.6); text-decoration:none; font-size:13px; }
+    .footer-mini a:hover { color:#fff; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-top">
+    <div style="display:flex;gap:20px;align-items:center;">
+      <a href="https://wa.me/966598325976" target="_blank">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        966 59 832 5976+
+      </a>
+      <span>📍 الرياض، حي المنصور</span>
+    </div>
+    <span style="font-size:12px;opacity:0.8;">تجهيزات مطاعم احترافية منذ 2019</span>
+  </div>
+  <div class="nav-main">
+    <a href="index.html" class="logo">
+      <svg width="50" height="50" viewBox="0 0 60 60" fill="none">
+        <circle cx="30" cy="30" r="28" stroke="#cc1f1f" stroke-width="2.5"/>
+        <g fill="#cc1f1f">
+          <rect x="26" y="4" width="8" height="10" rx="2"/><rect x="26" y="46" width="8" height="10" rx="2"/>
+          <rect x="4" y="26" width="10" height="8" rx="2"/><rect x="46" y="26" width="10" height="8" rx="2"/>
+          <rect x="9.5" y="9.5" width="8" height="10" rx="2" transform="rotate(45 13.5 14.5)"/>
+          <rect x="40.5" y="9.5" width="8" height="10" rx="2" transform="rotate(45 44.5 14.5)"/>
+          <rect x="9.5" y="40.5" width="8" height="10" rx="2" transform="rotate(45 13.5 45.5)"/>
+          <rect x="40.5" y="40.5" width="8" height="10" rx="2" transform="rotate(45 44.5 45.5)"/>
+        </g>
+        <circle cx="30" cy="30" r="10" fill="#cc1f1f"/>
+        <text x="30" y="34" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="Cairo">م</text>
+      </svg>
+      <div class="logo-text">
+        <h1>مشعل سفر عبدالرحمن</h1>
+        <span>معدات المطاعم والفنادق</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">الرئيسية</a></li>
+      <li><a href="products.html" class="active">المعدات والمنتجات</a></li>
+      <li><a href="#">الكاتلوج</a></li>
+      <li><a href="#">من نحن</a></li>
+      <li><a href="https://wa.me/966598325976" class="nav-cta">تواصل بنا</a></li>
+    </ul>
+    <div class="hamburger" onclick="openMenu()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="mobile-overlay" id="mobileOverlay" onclick="closeMenu()"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="closeMenu()">✕</button>
+  <div style="margin-top:50px;margin-bottom:20px;">
+    <h2 style="font-size:18px;font-weight:900;color:var(--red);">مشعل سفر عبدالرحمن</h2>
+  </div>
+  <ul class="mobile-nav-links">
+    <li><a href="index.html">الرئيسية</a></li>
+    <li><a href="products.html" style="color:var(--red);">المعدات والمنتجات</a></li>
+    <li><a href="#">الكاتلوج</a></li>
+    <li><a href="#">من نحن</a></li>
+    <li><a href="https://wa.me/966598325976" style="color:var(--red);font-weight:800;">تواصل بنا</a></li>
+  </ul>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadbar">
+  <div class="breadcrumb">
+    <a href="index.html">الرئيسية</a>
+    <span>›</span>
+    <a href="products.html">المنتجات</a>
+    <span>›</span>
+    <span class="current" id="breadName">...</span>
+  </div>
+</div>
+
+<!-- PRODUCT DETAIL -->
+<div id="productContent"></div>
+
+<!-- RELATED -->
+<div class="related-section" id="relatedSection" style="display:none;">
+  <h2 class="related-title">منتجات ذات صلة</h2>
+  <div class="related-grid" id="relatedGrid"></div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-mini">
+    <div>
+      <h2 style="font-size:18px;font-weight:900;color:#fff;font-family:'Tajawal',sans-serif;">مشعل سفر عبدالرحمن</h2>
+      <p style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:4px;">الرياض، حي المنصور</p>
+    </div>
+    <div style="display:flex;gap:24px;flex-wrap:wrap;">
+      <a href="index.html">الرئيسية</a>
+      <a href="products.html">المنتجات</a>
+      <a href="#">من نحن</a>
+      <a href="https://wa.me/966598325976" target="_blank">تواصل بنا</a>
+    </div>
+    <a href="https://wa.me/966598325976" target="_blank" style="background:#25D366;color:#fff;font-weight:700;font-size:13px;padding:10px 20px;border-radius:8px;text-decoration:none;">واتساب الآن</a>
+  </div>
+  <div class="footer-bottom">© 2024 مشعل سفر عبدالرحمن. جميع الحقوق محفوظة.</div>
+</footer>
+
+<script>
+// ============================================================
+// نفس قاعدة البيانات — اضف منتجاتك هنا
+// ============================================================
+const PRODUCTS = [
+  {
+    id: 'tep-202a',
+    name: 'فرن بيتزا حجري دورين كهرباء',
+    model: 'TEP-202A',
+    category: 'أفران بيتزا',
+    image: 'Electric-oven-with-stone-Double-deck.webp',
+    badge: 'الأكثر طلباً',
+    badgeType: '',
+    shortDesc: '2 طابق • 1 صينية 40×60 • حجر بيتزا كهربائي احترافي مناسب للمطاعم',
+    specs: [
+      { label: 'الطوابق', value: '2 دور' },
+      { label: 'حجم الصينية', value: '40×60 سم' },
+      { label: 'نوع الرف', value: 'حجر بيتزا' },
+      { label: 'الصناعة', value: 'الصين' },
+    ],
+    pros: ['موزع حرارة ممتاز', 'بناء متين من الستيل', 'سهل التنظيف', 'مناسب للمطاعم الصغيرة والمتوسطة'],
+    cons: ['يحتاج وقتاً للتسخين الأولي', 'حجم محدود بصينية واحدة لكل طابق'],
+    whatsappMsg: 'استفسار عن: فرن بيتزا TEP-202A',
+  },
+  {
+    id: 'pl-36',
+    name: 'فرن بيتزا 2 دور 2 صينية',
+    model: 'PL-36',
+    category: 'أفران بيتزا',
+    image: 'HTD-40ercengsipandian.webp',
+    badge: '',
+    badgeType: '',
+    shortDesc: '122×82×124 سم • 380V • 13.2KW • رف صاج أو حجري',
+    specs: [
+      { label: 'الأبعاد', value: '122×82×124 سم' },
+      { label: 'الجهد', value: '380V' },
+      { label: 'الطاقة', value: '13.2 KW • 32A' },
+      { label: 'درجة الحرارة', value: '20 – 400 °م' },
+      { label: 'الوزن', value: '145 كيلو' },
+      { label: 'الصواني', value: '3 طبقتان – 6 صواني' },
+    ],
+    pros: ['طاقة عالية مناسبة للمطاعم الكبيرة', 'رف صاج أو حجري حسب الطلب', 'درجة حرارة عالية حتى 400°م', 'موزع حرارة احترافي'],
+    cons: ['يتطلب 3 فاز كهرباء', 'ثقيل الوزن (145 كيلو)', 'يحتاج مساحة أكبر'],
+    whatsappMsg: 'استفسار عن: فرن بيتزا PL-36',
+  },
+  {
+    id: 'pl-12',
+    name: 'فرن بيتزا حجري دور واحد',
+    model: 'PL-12',
+    category: 'أفران بيتزا',
+    image: 'images.jpg',
+    badge: 'اقتصادي',
+    badgeType: 'new',
+    shortDesc: '122×82×55 سم • 380V • 7KW • 2 صينية 40×60',
+    specs: [
+      { label: 'الأبعاد', value: '122×82×55 سم' },
+      { label: 'الجهد', value: '380V' },
+      { label: 'الطاقة', value: '7 KW • 32A' },
+      { label: 'درجة الحرارة', value: '20 – 400 °م' },
+      { label: 'الصواني', value: 'دور 1 – 2 صواني' },
+    ],
+    pros: ['سعر اقتصادي', 'خيار الحجر أو الصاج', 'مناسب للمطاعم الصغيرة', 'سهل التشغيل'],
+    cons: ['طابق واحد فقط', 'سعة أقل من الموديلات الكبيرة'],
+    whatsappMsg: 'استفسار عن: فرن بيتزا PL-12',
+  },
+  {
+    id: 'tcw-370',
+    name: 'سخان بطاطا طاولة',
+    model: 'TCW-370',
+    category: 'سخانات بطاطا',
+    image: '1774269935392_image.png',
+    badge: '',
+    badgeType: '',
+    shortDesc: '560×610×340 مم • 220V • 1KW • يحافظ على حرارة البطاطا',
+    specs: [
+      { label: 'الأبعاد', value: '560×610×340 مم' },
+      { label: 'الجهد', value: '220V' },
+      { label: 'الطاقة', value: '1 KW' },
+      { label: 'التركيب', value: 'طاولة' },
+    ],
+    pros: ['صغير الحجم وعملي', 'سهل التركيب', 'يحافظ على حرارة البطاطا', 'مناسب للمحلات الصغيرة'],
+    cons: ['سعة محدودة', 'مخصص للبطاطا فقط'],
+    whatsappMsg: 'استفسار عن: سخان بطاطا TCW-370',
+  },
+  {
+    id: 'sy-1000',
+    name: 'سخان بطاطا مع خزانة 3 لمبة',
+    model: 'SY-1000',
+    category: 'سخانات بطاطا',
+    image: 'images__1_.jpg',
+    badge: 'جديد',
+    badgeType: 'new',
+    shortDesc: '1570×700×1000 مم • 220V • 1KW • 3 لمبات حرارية مع خزانة',
+    specs: [
+      { label: 'الأبعاد', value: '1570×700×1000 مم' },
+      { label: 'الجهد', value: '220V' },
+      { label: 'الطاقة', value: '1 KW' },
+      { label: 'الإضاءة', value: '3 لمبات حرارية' },
+      { label: 'الإضافات', value: 'خزانة أسفل' },
+    ],
+    pros: ['مع خزانة تخزين أسفل', '3 لمبات لتوزيع الحرارة بشكل أفضل', 'مظهر احترافي', 'مناسب للمطاعم الكبيرة'],
+    cons: ['حجم كبير يحتاج مساحة', 'سعر أعلى من النموذج الصغير'],
+    whatsappMsg: 'استفسار عن: سخان بطاطا SY-1000',
+  },
+];
+// ============================================================
+
+function getParam(key) {
+  return new URLSearchParams(window.location.search).get(key);
+}
+
+function render() {
+  const id = getParam('id');
+  const prod = PRODUCTS.find(p => p.id === id);
+  const content = document.getElementById('productContent');
+
+  if(!prod) {
+    content.innerHTML = `<div class="not-found"><h2>المنتج غير موجود</h2><p>تحقق من الرابط أو <a href="products.html" style="color:var(--red);">عد لقائمة المنتجات</a></p></div>`;
+    return;
+  }
+
+  document.title = `${prod.name} - مشعل سفر عبدالرحمن`;
+  document.getElementById('breadName').textContent = prod.name;
+
+  const specsRows = prod.specs.map(s => `
+    <tr><td>${s.label}</td><td>${s.value}</td></tr>
+  `).join('');
+
+  const prosItems = prod.pros.map(p => `<li>${p}</li>`).join('');
+  const consItems = prod.cons.map(c => `<li>${c}</li>`).join('');
+
+  content.innerHTML = `
+    <div class="detail-wrap">
+      <!-- IMAGE -->
+      <div class="img-panel">
+        <div class="img-main">
+          <img src="${prod.image}" alt="${prod.name}" onerror="this.style.opacity='0.2'"/>
+          ${prod.badge ? `<div class="img-badge ${prod.badgeType}">${prod.badge}</div>` : ''}
+        </div>
+        <div style="padding:16px 20px;border-top:1px solid #f0f0f0;display:flex;gap:12px;">
+          <a href="https://wa.me/966598325976?text=${encodeURIComponent(prod.whatsappMsg)}" target="_blank" class="btn-wa" style="flex:1;">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            اسأل عن السعر
+          </a>
+        </div>
+      </div>
+
+      <!-- INFO -->
+      <div class="info-panel">
+        <div class="prod-cat-chip">📂 ${prod.category}</div>
+        <h1 class="prod-title">${prod.name}</h1>
+        <div class="prod-model-line">الموديل: ${prod.model} &nbsp;•&nbsp; الصناعة: الصين</div>
+        <div class="prod-short">${prod.shortDesc}</div>
+
+        <div class="specs-title">المواصفات التقنية</div>
+        <table class="specs-table">
+          ${specsRows}
+        </table>
+
+        <div class="specs-title">الإيجابيات والسلبيات</div>
+        <div class="pros-cons">
+          <div class="pros-box">
+            <div class="box-title">✅ الإيجابيات</div>
+            <ul class="box-list">${prosItems}</ul>
+          </div>
+          <div class="cons-box">
+            <div class="box-title">⚠️ ملاحظات</div>
+            <ul class="box-list">${consItems}</ul>
+          </div>
+        </div>
+
+        <div class="cta-btns">
+          <a href="https://wa.me/966598325976?text=${encodeURIComponent(prod.whatsappMsg)}" target="_blank" class="btn-wa">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            اسأل عن السعر عبر الواتساب
+          </a>
+          <a href="products.html" class="btn-back">← العودة للمنتجات</a>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Related products
+  const related = PRODUCTS.filter(p => p.id !== prod.id && p.category === prod.category).slice(0,4);
+  if(related.length) {
+    document.getElementById('relatedSection').style.display = 'block';
+    document.getElementById('relatedGrid').innerHTML = related.map(p => `
+      <a href="product-detail.html?id=${p.id}" class="rel-card">
+        <div class="rel-img"><img src="${p.image}" alt="${p.name}" onerror="this.style.opacity='0.2'"/></div>
+        <div class="rel-info"><h4>${p.name}</h4><span>${p.model}</span></div>
+      </a>
+    `).join('');
+  }
+}
+
+render();
+function openMenu(){ document.getElementById('mobileMenu').classList.add('open'); document.getElementById('mobileOverlay').classList.add('open'); }
+function closeMenu(){ document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('mobileOverlay').classList.remove('open'); }
+</script>
+</body>
+</html>
